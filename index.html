@@ -11,11 +11,13 @@
 <meta property="og:description" content="대표원장 2인이 상담부터 사후관리까지 직접 진료합니다.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ansansdental.com/">
+<meta property="og:image" content="https://ansansdental.com/img/doctors.webp">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Dentist",
+  "@id": "https://ansansdental.com/#clinic",
   "name": "서울S치과의원",
   "url": "https://ansansdental.com/",
   "telephone": "+82-507-1320-2879",
@@ -34,8 +36,8 @@
   ],
   "medicalSpecialty": ["Dentistry", "Orthodontic", "Periodontic", "Prosthodontic"],
   "employee": [
-    {"@type": "Person", "name": "이승준", "jobTitle": "대표원장", "alumniOf": "서울대학교"},
-    {"@type": "Person", "name": "김유범", "jobTitle": "대표원장", "alumniOf": "서울대학교"}
+    {"@type": "Person", "@id": "https://ansansdental.com/doctors.html#lee", "url": "https://ansansdental.com/doctors.html#lee", "name": "이승준", "jobTitle": "대표원장", "alumniOf": "서울대학교"},
+    {"@type": "Person", "@id": "https://ansansdental.com/doctors.html#kim", "url": "https://ansansdental.com/doctors.html#kim", "name": "김유범", "jobTitle": "대표원장", "alumniOf": "서울대학교"}
   ],
   "sameAs": ["https://blog.ansansdental.com/", "https://blog.naver.com/ansansdental", "https://pf.kakao.com/_MrNNxj"],
   "logo": "https://ansansdental.com/img/logo.png",
@@ -176,6 +178,9 @@
   .card .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-bottom: 16px; }
   .card h3 { margin: 0 0 8px; font-size: 19px; letter-spacing: -.02em; }
   .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .detail-link { display: inline-block; margin-top: 16px; color: var(--navy); font-weight: 600; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
+  .column-links { display: flex; flex-wrap: wrap; gap: 12px 24px; margin-bottom: 28px; }
+  .column-links a { color: var(--navy); text-decoration: underline; text-underline-offset: 4px; }
 
   /* 의료진 */
   .doctors { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
@@ -336,6 +341,7 @@
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v6M9 9h6l-1 12h-4L9 9z"/></svg></div>
           <h3>임플란트</h3>
           <p>3D CT로 잇몸뼈와 신경관 위치를 확인한 뒤, 오스템·디오 정품 임플란트로 식립합니다.</p>
+          <a class="detail-link" href="implant.html">임플란트 진료 자세히 보기</a>
         </div>
         <div class="card">
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M6 9v6M10 9v6M14 9v6M18 9v6"/></svg></div>
@@ -346,6 +352,7 @@
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9 5.5-.8z"/></svg></div>
           <h3>심미보철</h3>
           <p>지르코니아·올세라믹 보철로 기능과 자연스러운 모양을 함께 회복합니다.</p>
+          <a class="detail-link" href="prosthetics.html">보철치료 자세히 보기</a>
         </div>
         <div class="card">
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
@@ -360,7 +367,8 @@
         <div class="card">
           <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9c0-3 3-5 7-5s7 2 7 5v3c0 4-3 8-7 8s-7-4-7-8z"/><path d="M9 14h6"/></svg></div>
           <h3>턱관절치료</h3>
-          <p>턱관절 불편감의 원인을 살펴 구강 전반의 균형을 바로잡는 치료 프로그램을 운영합니다.</p>
+          <p>턱 통증과 입 벌림 불편을 살피고, 진찰 결과에 따라 필요한 검사와 치료를 안내합니다.</p>
+          <a class="detail-link" href="tmj.html">턱관절 진료 자세히 보기</a>
         </div>
       </div>
     </div>
@@ -398,6 +406,7 @@
         <span class="chip">과잉 진료 없는 치료 계획</span>
         <span class="chip">상담부터 사후관리까지 원장 직접 진료</span>
       </div>
+      <a class="detail-link" href="doctors.html">의료진 소개와 진료 철학 자세히 보기</a>
     </div>
   </section>
 
@@ -470,8 +479,14 @@
         <p>대표원장이 환자분들께 자주 받는 질문을 정리했습니다.</p>
       </div>
       <div class="posts" id="posts">
-        <a class="post" href="https://blog.ansansdental.com/"><div class="thumb"></div><div class="body"><div class="date">불러오는 중</div><h3>건강칼럼 최신 글</h3></div></a>
+        <a class="post" href="https://blog.ansansdental.com/2026/09/ansan-jungangdong-systemic-disease-dental-implants.html"><div class="body"><div class="date">2026.09.28</div><h3>당뇨·골다공증 환자의 임플란트 가능 여부와 준비 조건</h3></div></a>
+        <a class="post" href="https://blog.ansansdental.com/2026/09/ansan-gojan-root-canal-treatment-pain-guide.html"><div class="body"><div class="date">2026.09.25</div><h3>신경치료 후 통증, 정상 회복 기준과 대처법</h3></div></a>
+        <a class="post" href="https://blog.ansansdental.com/2026/09/ansan-jungang-dental-denture-types-and-care.html"><div class="body"><div class="date">2026.09.23</div><h3>틀니 종류별 특징과 관리법</h3></div></a>
+        <a class="post" href="https://blog.ansansdental.com/2026/09/ansan-jungang-dong-wisdom-tooth-extraction-guide.html"><div class="body"><div class="date">2026.09.18</div><h3>사랑니 발치가 필요한 경우와 보존 가능한 경우</h3></div></a>
+        <a class="post" href="https://blog.ansansdental.com/2026/09/ansan-gojan-dong-dental-cavity-treatment-stages.html"><div class="body"><div class="date">2026.09.16</div><h3>충치치료, 레진·인레이·신경치료 선택 기준</h3></div></a>
+        <a class="post" href="https://blog.ansansdental.com/2026/09/ansan-jungang-dong-sensitive-teeth-treatment.html"><div class="body"><div class="date">2026.09.14</div><h3>시린이 치료와 보험 적용 안내</h3></div></a>
       </div>
+      <nav class="column-links" aria-label="진료별 정보"><a href="implant.html">임플란트 진료 안내</a><a href="prosthetics.html">보철치료 안내</a><a href="tmj.html">턱관절 진료 안내</a><a href="doctors.html">의료진 소개</a></nav>
       <div class="more"><a class="btn btn-line" href="https://blog.ansansdental.com/" target="_blank">건강칼럼 전체 보기</a></div>
     </div>
   </section>
@@ -609,7 +624,7 @@
     var entries = (data.feed && data.feed.entry) || [];
     if (!entries.length) return;
     var box = document.getElementById("posts");
-    box.innerHTML = "";
+    var fragment = document.createDocumentFragment();
     entries.forEach(function (e) {
       var link = (e.link.filter(function (l) { return l.rel === "alternate"; })[0] || {}).href;
       // 본문 이미지가 GitHub에 있어 Blogger 썸네일이 없음 → 본문 첫 이미지 사용
@@ -621,8 +636,9 @@
       if (thumb) a.querySelector(".thumb").style.backgroundImage = "url('" + thumb + "')";
       a.querySelector(".date").textContent = e.published.$t.slice(0, 10).replace(/-/g, ".");
       a.querySelector("h3").textContent = e.title.$t;
-      box.appendChild(a);
+      fragment.appendChild(a);
     });
+    box.replaceChildren(fragment);
   }
 </script>
 <script src="https://blog.ansansdental.com/feeds/posts/default?alt=json-in-script&amp;max-results=6&amp;callback=renderPosts" async></script>
