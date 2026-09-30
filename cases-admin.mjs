@@ -57,7 +57,7 @@ async function load(reset = false) {
     const rows = await api.list(true, offset);
     for (const row of rows) {
       const li = document.createElement('li'), text = document.createElement('span'), edit = document.createElement('button');
-      text.textContent = `${row.published ? '공개' : '임시 저장'} · ${row.title} · ${row.treatment_date}`;
+      text.textContent = [row.published ? '공개' : '임시 저장', row.title, row.treatment_date].filter(Boolean).join(' · ');
       edit.textContent = '수정'; edit.type = 'button'; edit.className = 'btn secondary'; edit.addEventListener('click', () => openCase(row)); li.append(text, edit); $('adminList').append(li);
     }
     offset += rows.length; button.hidden = rows.length < 20; message('adminStatus', offset ? '' : '등록된 사례가 없습니다. 새 사례 작성으로 시작하세요.');

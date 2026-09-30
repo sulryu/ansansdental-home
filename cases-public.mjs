@@ -18,7 +18,7 @@ async function list() {
         const cover = element('div', '', 'case-cover');
         if (row.after_image || row.before_image) { try { cover.append(await photo(row.after_image || row.before_image, row.title + ' 치료 사진')); } catch { cover.textContent = '치료 과정'; } }
         else cover.textContent = '서울S치과 진료 기록';
-        const copy = element('div', '', 'case-card-copy'); copy.append(element('span', row.category, 'case-tag'), element('h2', row.title), element('p', row.summary), element('p', `${row.treatment_date} · ${row.doctor} 원장`, 'meta'));
+        const copy = element('div', '', 'case-card-copy'); copy.append(element('span', row.category, 'case-tag'), element('h2', row.title), element('p', row.summary), element('p', [row.treatment_date, `${row.doctor} 원장`].filter(Boolean).join(' · '), 'meta'));
         card.append(cover, copy); container.append(card);
       }
       offset += rows.length; more.hidden = rows.length < 20;
@@ -32,7 +32,7 @@ async function list() {
 async function detail() {
   const row = await api.get(new URLSearchParams(location.search).get('id') || '');
   if (!row) throw Error('공개된 사례를 찾을 수 없습니다. 목록에서 다른 사례를 확인해 주세요.');
-  for (const [id, text] of [['caseCategory', row.category], ['caseTitle', row.title], ['caseSummary', row.summary], ['caseMeta', `${row.treatment_date} · 담당 ${row.doctor} 원장`]]) document.getElementById(id).textContent = text;
+  for (const [id, text] of [['caseCategory', row.category], ['caseTitle', row.title], ['caseSummary', row.summary], ['caseMeta', [row.treatment_date, `담당 ${row.doctor} 원장`].filter(Boolean).join(' · ')]]) document.getElementById(id).textContent = text;
   showBody(document.getElementById('caseBody'), row.body);
   document.title = row.title + ' | 서울S치과 임상사례';
   document.querySelector('meta[name=description]').content = row.summary;
