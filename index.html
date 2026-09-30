@@ -60,7 +60,7 @@
       "name": "야간진료나 주말 진료도 하나요?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "수요일은 야간진료로 오후 8시까지, 토요일은 오전 10시부터 오후 2시까지 점심시간 없이 진료합니다. 월·화·목·금은 오전 10시부터 오후 7시까지이며 평일 점심시간은 오후 1시부터 2시, 일요일은 휴진입니다."
+        "text": "수요일은 야간진료로 오후 8시까지, 토요일은 오전 10시부터 오후 2시까지 점심시간 없이 진료합니다. 월·화·목·금은 오전 10시부터 오후 7시까지이며 평일 점심시간은 오후 1시부터 2시, 일요일과 공휴일은 휴진입니다."
       }
     },
     {
@@ -151,8 +151,11 @@
   .hero .copy { align-self: center; padding: 24px 0 72px; }
   .hero-photo { align-self: end; }
   .hero-photo img { width: auto; height: 470px; max-width: 100%; object-fit: contain; object-position: bottom; margin: 0 auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,.25)); }
-  .hero .mini-hours { margin-top: 26px; font-size: 14px; color: rgba(255,255,255,.72); }
-  .hero .mini-hours b { color: #fff; font-weight: 600; }
+  .hero .mini-hours { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 28px 0 0; font-size: 15px; }
+  .hero .mini-hours dt { color: #fff; font-weight: 600; }
+  .hero .mini-hours dd { margin: 0; color: rgba(255,255,255,.85); }
+  .hero .mini-hours dd span { color: rgba(255,255,255,.6); font-size: 14px; }
+  .hero .mini-off { margin: 10px 0 0; font-size: 14px; color: rgba(255,255,255,.6); }
   .eyebrow { display: inline-block; font-size: 14px; font-weight: 600; letter-spacing: .02em; background: rgba(255,255,255,.12); padding: 6px 12px; border-radius: 999px; }
   .hero h1 { font-size: 44px; line-height: 1.3; letter-spacing: -.03em; margin: 18px 0 16px; font-weight: 800; }
   .hero p.lead { font-size: 18px; color: rgba(255,255,255,.82); margin: 0 0 30px; }
@@ -192,12 +195,25 @@
   .step h3 { margin: 6px 0 6px; font-size: 17px; }
   .step p { margin: 0; color: var(--muted); font-size: 14px; }
 
-  /* 장비 */
-  .equip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-  .equip .card { padding: 22px; }
-  .equip .card h3 { font-size: 16px; }
-  .equip .card p { font-size: 14px; }
 
+  /* 장비 슬라이드 */
+  .eq { position: relative; overflow: hidden; }
+  .eq-ghost { position: absolute; top: 40px; left: 12px; font-size: 104px; font-weight: 800; letter-spacing: -.04em; color: rgba(42,58,134,.05); white-space: nowrap; pointer-events: none; line-height: 1; }
+  .eq .sec-head { position: relative; }
+  .eq-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+  .eq-track::-webkit-scrollbar { display: none; }
+  .eq-slide { flex: 0 0 100%; scroll-snap-align: start; display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: center; }
+  .eq-img { aspect-ratio: 4/3; border-radius: 24px; background: radial-gradient(circle at 50% 60%, #ffffff 0%, #e9eef7 70%); display: grid; place-items: center; }
+  .eq-img img { width: 72%; height: 88%; object-fit: contain; filter: drop-shadow(0 18px 30px rgba(42,58,134,.18)); }
+  .eq-num { display: block; font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .08em; margin-bottom: 14px; }
+  .eq-name { display: inline-block; font-size: 20px; font-weight: 700; border: 2px solid var(--navy); color: var(--navy); border-radius: 999px; padding: 8px 22px; }
+  .eq-text p { margin: 18px 0 0; color: var(--muted); font-size: 17px; }
+  .eq-ctrl { display: flex; align-items: center; gap: 10px; margin-top: 28px; }
+  .eq-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--navy); font-size: 18px; cursor: pointer; }
+  .eq-btn:hover { border-color: var(--navy); }
+  .eq-dots { display: flex; gap: 8px; margin-left: 14px; }
+  .eq-dots button { width: 8px; height: 8px; border-radius: 50%; border: 0; padding: 0; background: #cfd6e4; cursor: pointer; }
+  .eq-dots button.on { background: var(--navy); width: 22px; border-radius: 999px; }
   /* 건강칼럼 */
   .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .post { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: .15s; }
@@ -244,6 +260,8 @@
   .quick svg { width: 24px; height: 24px; }
 
   @media (max-width: 960px) {
+    .eq-slide { grid-template-columns: 1fr; gap: 20px; }
+    .eq-ghost { font-size: 56px; }
     .menu { display: none; }
     .hero .wrap { grid-template-columns: 1fr; padding-top: 56px; gap: 8px; }
     .hero .copy { padding-bottom: 8px; }
@@ -252,12 +270,11 @@
     .grid-3, .posts { grid-template-columns: 1fr 1fr; }
     .doctors, .visit { grid-template-columns: 1fr; }
     .steps { grid-template-columns: 1fr 1fr; }
-    .equip { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     section { padding: 64px 0; }
     .sec-head h2 { font-size: 26px; }
-    .grid-3, .posts, .equip { grid-template-columns: 1fr; }
+    .grid-3, .posts { grid-template-columns: 1fr; }
     .doc { grid-template-columns: 100px 1fr; gap: 16px; padding: 20px; }
     .nav .btn { display: none; }
     .quick { top: auto; bottom: 0; right: 0; left: 0; transform: none; border-radius: 0; padding: 0; display: flex; }
@@ -294,7 +311,12 @@
           <a class="btn btn-primary" href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener">네이버 예약하기</a>
           <a class="btn btn-ghost" href="https://pf.kakao.com/_MrNNxj" target="_blank" rel="noopener">카카오톡 상담</a>
         </div>
-        <p class="mini-hours"><b>평일</b> 10:00–19:00 · <b>수 야간</b> ~20:00 · <b>토</b> 10:00–14:00 · <b>일요일 휴진</b></p>
+        <dl class="mini-hours">
+          <dt>월 · 화 · 목 · 금</dt><dd>10:00~19:00</dd>
+          <dt>수</dt><dd>10:00~20:00 <span>(야간진료)</span></dd>
+          <dt>토</dt><dd>10:00~14:00 <span>(점심시간 없음)</span></dd>
+        </dl>
+        <p class="mini-off">*일요일, 공휴일 휴진</p>
       </div>
       <div class="hero-photo">
         <img src="img/doctors.webp" alt="서울S치과의원 이승준·김유범 대표원장">
@@ -398,18 +420,44 @@
     </div>
   </section>
 
-  <section class="soft">
+  <section id="equipment" class="soft eq">
     <div class="wrap">
+      <div class="eq-ghost" aria-hidden="true">Digital Dentistry</div>
       <div class="sec-head">
         <span class="kicker">EQUIPMENT</span>
-        <h2>진단과 치료에 쓰는 장비</h2>
+        <h2>진단부터 치료까지,<br>디지털 장비로 정밀하게</h2>
+        <p>정확한 진단과 위생 관리를 위해 갖춘 장비를 소개합니다.</p>
       </div>
-      <div class="equip">
-        <div class="card"><h3>저선량 3D CT</h3><p>임플란트·사랑니 발치 전 잇몸뼈와 신경관 위치 확인</p></div>
-        <div class="card"><h3>디지털 마취기</h3><p>주입 압력과 속도를 일정하게 조절</p></div>
-        <div class="card"><h3>디지털 구강 스캐너</h3><p>교정 진단과 보철 제작용 3D 데이터 채득</p></div>
-        <div class="card"><h3>전동식 근관치료 시스템</h3><p>신경관 내부를 정밀하게 청소하고 다듬음</p></div>
-        <div class="card"><h3>오스템 · 디오 정품</h3><p>임상적으로 검증된 정품 임플란트 시스템</p></div>
+      <div class="eq-track" id="eqTrack">
+        <div class="eq-slide">
+          <div class="eq-img"><img src="img/equip/ct.webp" alt="서울S치과 저선량 3D CT" loading="lazy"></div>
+          <div class="eq-text"><span class="eq-num">01 / 06</span><span class="eq-name">저선량 3D CT</span><p>잇몸뼈와 신경관 위치를 입체로 확인해 임플란트와 사랑니 발치를 계획합니다.</p></div>
+        </div>
+        <div class="eq-slide">
+          <div class="eq-img"><img src="img/equip/anesthesia.webp" alt="서울S치과 디지털 마취기" loading="lazy"></div>
+          <div class="eq-text"><span class="eq-num">02 / 06</span><span class="eq-name">디지털 마취기</span><p>마취액 주입 속도와 압력을 자동으로 조절해 주사 시 부담을 줄입니다.</p></div>
+        </div>
+        <div class="eq-slide">
+          <div class="eq-img"><img src="img/equip/scanner.webp" alt="서울S치과 디지털 구강 스캐너" loading="lazy"></div>
+          <div class="eq-text"><span class="eq-num">03 / 06</span><span class="eq-name">디지털 구강 스캐너</span><p>본뜨기 없이 구강을 3D로 스캔해 교정 진단과 보철 제작에 활용합니다.</p></div>
+        </div>
+        <div class="eq-slide">
+          <div class="eq-img"><img src="img/equip/endo.webp" alt="서울S치과 전동식 근관치료 시스템" loading="lazy"></div>
+          <div class="eq-text"><span class="eq-num">04 / 06</span><span class="eq-name">전동식 근관치료 시스템</span><p>미세한 신경관 내부를 정밀하게 청소하고 다듬어 신경치료를 진행합니다.</p></div>
+        </div>
+        <div class="eq-slide">
+          <div class="eq-img"><img src="img/equip/tmj.webp" alt="서울S치과 턱관절 물리치료기" loading="lazy"></div>
+          <div class="eq-text"><span class="eq-num">05 / 06</span><span class="eq-name">턱관절 물리치료기</span><p>저주파 자극과 저출력 레이저로 턱 주변 근육의 긴장을 풀어 줍니다.</p></div>
+        </div>
+        <div class="eq-slide">
+          <div class="eq-img"><img src="img/equip/sterilizer.webp" alt="서울S치과 핸드피스 종합 멸균기" loading="lazy"></div>
+          <div class="eq-text"><span class="eq-num">06 / 06</span><span class="eq-name">핸드피스 종합 멸균기</span><p>진료에 쓰는 핸드피스를 환자마다 고온·고압으로 멸균합니다.</p></div>
+        </div>
+      </div>
+      <div class="eq-ctrl">
+        <button type="button" class="eq-btn" data-dir="-1" aria-label="이전 장비">&larr;</button>
+        <button type="button" class="eq-btn" data-dir="1" aria-label="다음 장비">&rarr;</button>
+        <div class="eq-dots" id="eqDots"><button type="button" aria-label="저선량 3D CT"></button><button type="button" aria-label="디지털 마취기"></button><button type="button" aria-label="디지털 구강 스캐너"></button><button type="button" aria-label="전동식 근관치료 시스템"></button><button type="button" aria-label="턱관절 물리치료기"></button><button type="button" aria-label="핸드피스 종합 멸균기"></button></div>
       </div>
     </div>
   </section>
@@ -441,7 +489,7 @@
         </details>
         <details class="faq-item">
           <summary>야간진료나 주말 진료도 하나요?</summary>
-          <p>수요일은 야간진료로 오후 8시까지, 토요일은 오전 10시부터 오후 2시까지 점심시간 없이 진료합니다. 월·화·목·금은 오전 10시부터 오후 7시까지이며 평일 점심시간은 오후 1시부터 2시, 일요일은 휴진입니다.</p>
+          <p>수요일은 야간진료로 오후 8시까지, 토요일은 오전 10시부터 오후 2시까지 점심시간 없이 진료합니다. 월·화·목·금은 오전 10시부터 오후 7시까지이며 평일 점심시간은 오후 1시부터 2시, 일요일과 공휴일은 휴진입니다.</p>
         </details>
         <details class="faq-item">
           <summary>진료 중간에 담당 원장님이 바뀌나요?</summary>
@@ -496,7 +544,7 @@
                 <tr><td>수 (야간진료)</td><td>10:00 – 20:00</td></tr>
                 <tr><td>토</td><td>10:00 – 14:00</td></tr>
                 <tr><td>점심시간 (평일)</td><td>13:00 – 14:00</td></tr>
-                <tr><td>일요일</td><td>휴진</td></tr>
+                <tr><td>일요일 · 공휴일</td><td>휴진</td></tr>
               </table>
             </dd>
             <dt>결제</dt><dd>다온카드, 카카오페이, 애플페이, 바코드·QR 결제</dd>
@@ -531,6 +579,30 @@
   <a href="#visit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>오시는길</a>
 </nav>
 
+<script>
+  // 장비 슬라이드: 현재 위치(cur)를 변수로 관리. 4초 자동 넘김, 마우스 올림·터치 중엔 멈춤
+  (function () {
+    var track = document.getElementById("eqTrack"), dots = document.querySelectorAll("#eqDots button");
+    if (!track) return;
+    var n = dots.length, cur = 0, paused = false, t;
+    function mark() { dots.forEach(function (d, j) { d.classList.toggle("on", j === cur); }); }
+    function go(i) { cur = (i + n) % n; track.scrollTo({ left: cur * track.clientWidth }); mark(); }
+    document.querySelectorAll(".eq-btn").forEach(function (b) { b.onclick = function () { go(cur + +b.dataset.dir); }; });
+    dots.forEach(function (d, j) { d.onclick = function () { go(j); }; });
+    // 손으로 스와이프한 경우: 스크롤이 멈춘 뒤 위치를 cur에 반영
+    track.addEventListener("scroll", function () {
+      clearTimeout(t);
+      t = setTimeout(function () { cur = Math.round(track.scrollLeft / track.clientWidth); mark(); }, 150);
+    });
+    var box = track.closest(".wrap");
+    box.addEventListener("mouseenter", function () { paused = true; });
+    box.addEventListener("mouseleave", function () { paused = false; });
+    box.addEventListener("touchstart", function () { paused = true; }, { passive: true });
+    box.addEventListener("touchend", function () { setTimeout(function () { paused = false; }, 4000); });
+    setInterval(function () { if (!paused && !document.hidden) go(cur + 1); }, 4000);
+    mark();
+  })();
+</script>
 <script>
   // 블로그 최신 글 6개 (Blogger JSON 피드, 새 글 발행 시 자동 반영)
   function renderPosts(data) {
