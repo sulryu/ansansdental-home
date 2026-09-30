@@ -148,6 +148,12 @@
   .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
   .map { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 4/3; }
   .map iframe { width: 100%; height: 100%; border: 0; }
+  .map-links { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  .map-links .btn { border-radius: 12px; }
+  .map-naver { background: #03c75a; color: #fff; }
+  .map-naver:hover { background: #02b351; }
+  .map-kakao { background: #fee500; color: #191919; }
+  .map-kakao:hover { background: #f5dc00; }
   .info dl { margin: 0; display: grid; grid-template-columns: 88px 1fr; row-gap: 18px; column-gap: 16px; }
   .info dt { font-weight: 700; color: var(--navy); }
   .info dd { margin: 0; color: var(--muted); }
@@ -355,8 +361,14 @@
         <h2>오시는 길</h2>
       </div>
       <div class="visit">
+        <div>
         <div class="map">
           <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="서울S치과의원 위치" src="https://www.google.com/maps/embed?pb=!1m5!3m3!1m2!1s0x357b6f1b46344cc3%3A0x41fa396c34e63fb0!2z7ISc7Jq4U-y5mOqzvOydmOybkA!5e0!3m2!1sko!2skr!4v1787119568194!5m2!1sko!2skr"></iframe>
+        </div>
+        <div class="map-links">
+          <a class="btn map-naver" href="https://map.naver.com/p/entry/place/13208758" target="_blank" rel="noopener">네이버 지도로 보기</a>
+          <a class="btn map-kakao" href="https://map.kakao.com/link/map/서울S치과의원,37.318111,126.836633" target="_blank" rel="noopener">카카오맵으로 보기</a>
+        </div>
         </div>
         <div class="info">
           <dl>
