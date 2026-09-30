@@ -1,3 +1,4 @@
+import {bodyText} from './cases-richtext.mjs';
 export const categories = ['임플란트', '보철', '충치·신경치료', '잇몸치료', '턱관절', '기타'];
 export const doctors = ['이승준', '김유범'];
 export const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -7,6 +8,7 @@ export function validateCase(value) {
   }
   if (!categories.includes(value.category) || !doctors.includes(value.doctor)) throw Error('진료 분야와 담당 원장을 선택해 주세요.');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value.treatment_date) || !Number.isFinite(Date.parse(value.treatment_date)) || new Date(value.treatment_date).toISOString().slice(0, 10) !== value.treatment_date) throw Error('진료일을 확인해 주세요.');
+  if (bodyText(value.body).length < 2) throw Error('치료 내용을 두 글자 이상 입력해 주세요.');
   if (value.published && !value.consent_confirmed) throw Error('공개 전 사진·내용 게시 동의 확인에 체크해 주세요.');
   return value;
 }

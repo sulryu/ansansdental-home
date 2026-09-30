@@ -1,4 +1,5 @@
 import {createAPI} from './cases-api.mjs';
+import {showBody} from './cases-richtext.mjs';
 const api = createAPI(window.SEOULS_CASES || {});
 const status = document.getElementById('caseStatus');
 const element = (tag, text, className) => { const el = document.createElement(tag); if (text) el.textContent = text; if (className) el.className = className; return el; };
@@ -31,7 +32,8 @@ async function list() {
 async function detail() {
   const row = await api.get(new URLSearchParams(location.search).get('id') || '');
   if (!row) throw Error('공개된 사례를 찾을 수 없습니다. 목록에서 다른 사례를 확인해 주세요.');
-  for (const [id, text] of [['caseCategory', row.category], ['caseTitle', row.title], ['caseSummary', row.summary], ['caseBody', row.body], ['caseMeta', `${row.treatment_date} · 담당 ${row.doctor} 원장`]]) document.getElementById(id).textContent = text;
+  for (const [id, text] of [['caseCategory', row.category], ['caseTitle', row.title], ['caseSummary', row.summary], ['caseMeta', `${row.treatment_date} · 담당 ${row.doctor} 원장`]]) document.getElementById(id).textContent = text;
+  showBody(document.getElementById('caseBody'), row.body);
   document.title = row.title + ' | 서울S치과 임상사례';
   document.querySelector('meta[name=description]').content = row.summary;
   for (const [path, caption] of [[row.before_image, '치료 전'], [row.after_image, '치료 후']]) {

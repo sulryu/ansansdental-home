@@ -1,8 +1,38 @@
 import {createAPI, validateCase, validatePhoto} from './cases-api.mjs';
+import {createEditor, decodeBody, encodeBody, bodyText, safeLink} from './cases-richtext.mjs';
 const api = createAPI(window.SEOULS_CASES || {});
 const $ = id => document.getElementById(id);
 const form = $('caseForm');
 let current = null, busy = false, dirty = false, offset = 0;
+let bodyEditor, previewEditor;
+function syncBody() {
+  form.elements.body.value = encodeBody(bodyEditor.getContents().ops);
+  $('bodyCount').textContent = `${bodyText(form.elements.body.value).length}자 · 서식 포함 ${form.elements.body.value.length.toLocaleString()} / 12,000자`;
+  $('bodyCount').classList.toggle('error', form.elements.body.value.length > 12000);
+}
+function prepareBody() {
+  if (bodyEditor) return;
+  bodyEditor = createEditor($('bodyEditor'), '#bodyToolbar');
+  let selection = {index: 0, length: 0};
+  bodyEditor.on('selection-change', range => { if (range) selection = range; });
+  for (const [id, format] of [['bodyFont', 'font'], ['bodySize', 'size'], ['bodyColor', 'color']]) {
+    $(id).addEventListener('change', () => {
+      const value = $(id).value || false;
+      bodyEditor.setSelection(selection); bodyEditor.format(format, value, 'user');
+      $(id).value = value || '';
+    });
+  }
+  bodyEditor.getModule('toolbar').addHandler('link', value => {
+    if (!value) { bodyEditor.format('link', false, 'user'); return; }
+    const url = prompt('연결할 주소를 입력하세요. (https://…)');
+    if (!url) return;
+    if (!safeLink(url.trim())) { message('saveStatus', 'https://로 시작하는 올바른 링크 주소를 입력해 주세요.', true); return; }
+    bodyEditor.format('link', url.trim(), 'user');
+  });
+  $('bodyUndo').addEventListener('click', () => bodyEditor.history.undo());
+  $('bodyRedo').addEventListener('click', () => bodyEditor.history.redo());
+  bodyEditor.on('text-change', (_delta, _old, source) => { syncBody(); if (source === 'user') dirty = true; });
+}
 function message(id, text, error = false) { $(id).textContent = text; $(id).classList.toggle('error', error); }
 function editor(show) { $('loginPanel').hidden = show; $('editorPanel').hidden = !show; }
 function reauthenticate(error) { if (error.status === 401) { editor(false); message('loginStatus', error.message, true); $('password').focus(); } }
@@ -10,10 +40,15 @@ function confirmDiscard() { return !dirty || confirm('저장하지 않은 내용
 function openCase(row) {
   if (busy || !confirmDiscard()) return;
   current = row; form.reset();
-  for (const name of ['title', 'category', 'doctor', 'treatment_date', 'summary', 'body']) form.elements[name].value = row?.[name] || '';
+  for (const name of ['title', 'category', 'doctor', 'treatment_date', 'summary']) form.elements[name].value = row?.[name] || '';
   for (const name of ['consent_confirmed', 'published']) form.elements[name].checked = Boolean(row?.[name]);
   for (const name of ['before', 'after']) $(name + 'Existing').textContent = row?.[name + '_image'] ? '기존 사진이 있습니다. 새 파일을 선택하면 교체됩니다.' : '';
-  $('deleteCase').hidden = !row; message('saveStatus', ''); dirty = false; form.hidden = false; $('title').focus();
+  $('deleteCase').hidden = !row; message('saveStatus', ''); dirty = false; form.hidden = false;
+  try {
+    prepareBody(); bodyEditor.setContents({ops: decodeBody(row?.body || '')}, 'silent'); bodyEditor.history.clear(); syncBody();
+    for (const id of ['bodyFont', 'bodySize', 'bodyColor']) $(id).value = '';
+    $('title').focus();
+  } catch (error) { message('saveStatus', error.message, true); }
 }
 async function load(reset = false) {
   const button = $('adminMore'); button.disabled = true;
@@ -50,9 +85,12 @@ function setBusy(value) {
   busy = value;
   // 저장 중 다른 사례나 입력값으로 바뀌어 사진과 글이 섞이는 것을 막습니다.
   for (const control of document.querySelectorAll('#editorPanel button, #caseForm input, #caseForm select, #caseForm textarea')) control.disabled = value;
+  bodyEditor?.enable(!value);
 }
 form.addEventListener('submit', async event => {
   event.preventDefault(); if (busy) return;
+  if (!bodyEditor) { message('saveStatus', '편집기를 불러오지 못했습니다. 새로고침 후 다시 시도해 주세요.', true); return; }
+  syncBody();
   const value = {};
   for (const name of ['title', 'category', 'doctor', 'treatment_date', 'summary', 'body']) value[name] = form.elements[name].value.trim();
   for (const name of ['consent_confirmed', 'published']) value[name] = form.elements[name].checked;
@@ -99,3 +137,14 @@ $('deleteCase').addEventListener('click', async () => {
 });
 if (!api.ready) { message('loginStatus', '관리자 페이지 연결을 준비하고 있습니다. 아직 로그인할 수 없습니다.'); $('loginForm').querySelector('button').disabled = true; }
 else try { if (await api.isAdmin()) { editor(true); await load(true); } } catch { editor(false); }
+$('previewCase').addEventListener('click', () => {
+  if (!bodyEditor || busy) return;
+  syncBody();
+  $('previewTitle').textContent = form.elements.title.value || '사례 미리보기';
+  $('previewSummary').textContent = form.elements.summary.value;
+  $('casePreview').showModal();
+  previewEditor ||= createEditor($('previewBody'));
+  previewEditor.setContents({ops: decodeBody(form.elements.body.value)}, 'silent');
+});
+$('closePreview').addEventListener('click', () => $('casePreview').close());
+$('casePreview').addEventListener('close', () => $('previewCase').focus());

@@ -18,6 +18,27 @@ button.btn {font:inherit;cursor:pointer;border:0;min-height:44px}button:disabled
 .check {display:flex;align-items:center;gap:10px;margin:18px 0;min-height:44px}.admin-toolbar {display:flex;align-items:center;justify-content:space-between;gap:16px;margin:28px 0}
 .form-grid {display:grid;grid-template-columns:1fr 1fr;gap:0 24px}.status {color:var(--muted);min-height:28px}.status.error {color:#9f2330}.btn.danger {background:#a22532}.admin-list {margin:24px 0;padding:0;list-style:none}.admin-list li {border-bottom:1px solid var(--line);padding:16px 0;display:flex;align-items:center;justify-content:space-between;gap:16px}.admin-list .btn {white-space:nowrap}
 [hidden] {display:none!important}
+.body-toolbar.ql-toolbar {display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px;border:1px solid #b9c2d3;border-radius:10px 10px 0 0;background:var(--soft)}
+.body-toolbar label {display:flex;align-items:center;gap:6px;margin-right:6px;font-size:14px}
+.body-options {display:flex;flex-wrap:wrap;gap:12px;background:var(--soft);padding:10px;border:1px solid #b9c2d3;border-radius:10px}
+.body-options label {display:flex;align-items:center;gap:6px;font-size:14px}
+.body-options select {width:auto;max-width:180px;min-height:44px;padding:7px;font-size:14px}
+.body-toolbar select {width:auto;max-width:180px;min-height:44px;padding:7px;font-size:14px}
+.body-toolbar.ql-toolbar .ql-formats {display:flex;gap:2px;margin:0}
+.body-toolbar.ql-toolbar button {width:44px;height:44px;border-radius:6px;padding:10px;cursor:pointer}
+.body-toolbar.ql-toolbar .history-button {width:auto;padding:8px 12px;font-family:inherit;font-size:14px;border:1px solid #b9c2d3;background:#fff}
+.body-toolbar.ql-toolbar button:focus-visible {outline:3px solid #4a7eae;outline-offset:1px}
+#bodyEditor.ql-container {border:1px solid #b9c2d3;border-top:0;border-radius:0 0 10px 10px;font-family:inherit;font-size:16px}
+#bodyEditor .ql-editor {min-height:300px;line-height:1.9;padding:18px}
+.case-richtext.ql-container {border:0;font-family:inherit;font-size:16px}
+.case-richtext .ql-editor {padding:0;line-height:1.9;overflow-wrap:anywhere}
+.ql-editor .ql-font-pretendard {font-family:"Pretendard","Malgun Gothic",sans-serif}
+.ql-editor .ql-font-malgun {font-family:"Malgun Gothic",sans-serif}
+.ql-editor .ql-font-serif {font-family:"Batang","Noto Serif KR",serif}
+.ql-editor p {margin:0}.ql-editor h2 {margin:20px 0 12px}.ql-editor li {margin:6px 0}
+.case-preview {width:min(820px,calc(100% - 32px));max-height:calc(100dvh - 40px);overflow:auto;padding:28px;border:1px solid var(--line);border-radius:16px;color:var(--ink)}
+.case-preview::backdrop {background:#1d243380}.case-preview>button {float:right}
+.note.error {color:#9f2330}
 @media(max-width:760px) {.case-grid{grid-template-columns:1fr 1fr}.case-head{align-items:flex-start;flex-direction:column}}
 @media(max-width:520px) {.case-grid,.case-photos,.form-grid{grid-template-columns:1fr}.case-grid{gap:20px}.login-panel{padding:24px 20px}.admin-toolbar{align-items:flex-start;flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce) {.case-card{transition:none}}
