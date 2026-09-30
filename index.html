@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>서울S치과의원 | 안산 중앙역 치과, 대표원장 2인 직접 진료</title>
+<meta name="description" content="안산 중앙역 1번 출구 도보 5분, 서울대학교 출신 이승준·김유범 대표원장 2인이 상담부터 사후관리까지 직접 진료하는 서울S치과의원입니다. 임플란트·치아교정·심미보철·충치·잇몸·턱관절 진료.">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="canonical" href="https://ansansdental.com/">
+<meta property="og:title" content="서울S치과의원 | 안산 중앙역 치과">
+<meta property="og:description" content="대표원장 2인이 상담부터 사후관리까지 직접 진료합니다.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ansansdental.com/">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  "name": "서울S치과의원",
+  "url": "https://ansansdental.com/",
+  "telephone": "+82-507-1320-2879",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "예술대학로 11 4층",
+    "addressLocality": "안산시 단원구",
+    "addressRegion": "경기도",
+    "addressCountry": "KR"
+  },
+  "geo": {"@type": "GeoCoordinates", "latitude": 37.318111, "longitude": 126.836633},
+  "openingHoursSpecification": [
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Thursday", "Friday"], "opens": "10:00", "closes": "19:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Wednesday", "opens": "10:00", "closes": "20:00"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "10:00", "closes": "14:00"}
+  ],
+  "medicalSpecialty": ["Dentistry", "Orthodontic", "Periodontic", "Prosthodontic"],
+  "employee": [
+    {"@type": "Person", "name": "이승준", "jobTitle": "대표원장", "alumniOf": "서울대학교"},
+    {"@type": "Person", "name": "김유범", "jobTitle": "대표원장", "alumniOf": "서울대학교"}
+  ],
+  "sameAs": ["https://blog.ansansdental.com/", "https://blog.naver.com/ansansdental", "https://pf.kakao.com/_MrNNxj"],
+  "logo": "https://ansansdental.com/img/logo.png",
+  "image": "https://ansansdental.com/img/doctors.webp"
+}
+</script>
+<style>
+  :root {
+    --navy: #2a3a86;
+    --navy-2: #34489e;
+    --ink: #1d2433;
+    --muted: #5b6475;
+    --line: #e3e7ef;
+    --bg: #ffffff;
+    --bg-soft: #f4f6fa;
+    --accent: #4a7eae;
+    --accent-soft: #e9f1f8;
+    --radius: 14px;
+    --max: 1120px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Pretendard", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    font-size: 16px; line-height: 1.65; word-break: keep-all;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+  .todo { background: #fff3cd; color: #7a5b00; border-radius: 4px; padding: 0 4px; font-weight: 600; }
+
+  /* 헤더 */
+  header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .logo img { height: 36px; width: auto; }
+  .menu { display: flex; gap: 26px; font-size: 15px; color: var(--muted); }
+  .menu a:hover { color: var(--navy); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 44px; padding: 0 18px; border-radius: 999px; font-weight: 600; font-size: 15px; border: 1px solid transparent; transition: .15s; }
+  .btn-primary { background: var(--navy); color: #fff; }
+  .btn-primary:hover { background: var(--navy-2); }
+  .btn-ghost { border-color: rgba(255,255,255,.5); color: #fff; }
+  .btn-ghost:hover { background: rgba(255,255,255,.12); }
+  .btn-line { border-color: var(--line); color: var(--navy); background: #fff; }
+
+  /* 히어로 */
+  .hero { background: linear-gradient(135deg, #23307a 0%, #3c5d9e 100%); overflow: hidden; color: #fff; }
+  .hero .wrap { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: end; padding-top: 72px; }
+  .hero .copy { align-self: center; padding: 24px 0 72px; }
+  .hero-photo { align-self: end; }
+  .hero-photo img { width: auto; height: 470px; max-width: 100%; object-fit: contain; object-position: bottom; margin: 0 auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,.25)); }
+  .hero .mini-hours { margin-top: 26px; font-size: 14px; color: rgba(255,255,255,.72); }
+  .hero .mini-hours b { color: #fff; font-weight: 600; }
+  .eyebrow { display: inline-block; font-size: 14px; font-weight: 600; letter-spacing: .02em; background: rgba(255,255,255,.12); padding: 6px 12px; border-radius: 999px; }
+  .hero h1 { font-size: 44px; line-height: 1.3; letter-spacing: -.03em; margin: 18px 0 16px; font-weight: 800; }
+  .hero p.lead { font-size: 18px; color: rgba(255,255,255,.82); margin: 0 0 30px; }
+  .hero .ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+  .hero .ctas .btn-primary { background: #fff; color: var(--navy); }
+
+  /* 섹션 공통 */
+  section { padding: 96px 0; }
+  section.soft { background: var(--bg-soft); }
+  .sec-head { margin-bottom: 44px; }
+  .sec-head .kicker { color: var(--accent); font-weight: 700; font-size: 14px; letter-spacing: .06em; }
+  .sec-head h2 { font-size: 32px; letter-spacing: -.03em; margin: 8px 0 10px; line-height: 1.35; }
+  .sec-head p { color: var(--muted); margin: 0; max-width: 640px; }
+
+  /* 진료과목 */
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; }
+  .card .ic { width: 44px; height: 44px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-bottom: 16px; }
+  .card h3 { margin: 0 0 8px; font-size: 19px; letter-spacing: -.02em; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  /* 의료진 */
+  .doctors { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .doc { display: grid; grid-template-columns: 150px 1fr; gap: 24px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; }
+  .doc .photo { aspect-ratio: 3/4; border-radius: 12px; background: linear-gradient(180deg, var(--accent-soft), #dfe8f3); overflow: hidden; }
+  .doc .photo img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .doc h3 { margin: 0; font-size: 22px; letter-spacing: -.02em; }
+  .doc .role { color: var(--accent); font-weight: 600; font-size: 14px; margin: 2px 0 12px; }
+  .doc p { margin: 0; color: var(--muted); font-size: 15px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .chip { font-size: 14px; background: #fff; border: 1px solid var(--line); padding: 7px 14px; border-radius: 999px; color: var(--navy); }
+
+  /* 진료 절차 */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; counter-reset: s; }
+  .step { border-top: 2px solid var(--navy); padding-top: 16px; }
+  .step::before { counter-increment: s; content: "STEP " counter(s); font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: .05em; }
+  .step h3 { margin: 6px 0 6px; font-size: 17px; }
+  .step p { margin: 0; color: var(--muted); font-size: 14px; }
+
+  /* 장비 */
+  .equip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .equip .card { padding: 22px; }
+  .equip .card h3 { font-size: 16px; }
+  .equip .card p { font-size: 14px; }
+
+  /* 건강칼럼 */
+  .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .post { display: flex; flex-direction: column; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: .15s; }
+  .post:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(42,58,134,.10); }
+  .post .thumb { aspect-ratio: 1/1; background: var(--bg-soft) center/cover no-repeat; }
+  .post .body { padding: 18px 20px 20px; }
+  .post .date { font-size: 13px; color: var(--muted); }
+  .post h3 { margin: 4px 0 0; font-size: 16px; line-height: 1.5; letter-spacing: -.01em; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .more { margin-top: 28px; text-align: center; }
+
+  /* 오시는 길 */
+  .visit { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+  .map { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); aspect-ratio: 4/3; }
+  .map iframe { width: 100%; height: 100%; border: 0; }
+  .info dl { margin: 0; display: grid; grid-template-columns: 88px 1fr; row-gap: 18px; column-gap: 16px; }
+  .info dt { font-weight: 700; color: var(--navy); }
+  .info dd { margin: 0; color: var(--muted); }
+  .info .table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .info .table td { padding: 4px 0; }
+  .info .table td:last-child { text-align: right; color: var(--ink); font-weight: 600; }
+
+  footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 44px 0 110px; font-size: 14px; }
+  footer strong { color: #fff; }
+  footer .links { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 12px; }
+  footer .links a:hover { color: #fff; }
+
+  /* 빠른메뉴 */
+  .quick { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); z-index: 30; background: var(--navy); border-radius: 40px; padding: 12px 6px; box-shadow: 0 8px 24px rgba(0,0,0,.18); }
+  .quick a { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 64px; padding: 10px 0; color: #fff; font-size: 12px; }
+  .quick a + a { border-top: 1px solid rgba(255,255,255,.14); }
+  .quick svg { width: 24px; height: 24px; }
+
+  @media (max-width: 960px) {
+    .menu { display: none; }
+    .hero .wrap { grid-template-columns: 1fr; padding-top: 56px; gap: 8px; }
+    .hero .copy { padding-bottom: 8px; }
+    .hero-photo img { height: 320px; }
+    .hero h1 { font-size: 32px; }
+    .grid-3, .posts { grid-template-columns: 1fr 1fr; }
+    .doctors, .visit { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .equip { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 64px 0; }
+    .sec-head h2 { font-size: 26px; }
+    .grid-3, .posts, .equip { grid-template-columns: 1fr; }
+    .doc { grid-template-columns: 100px 1fr; gap: 16px; padding: 20px; }
+    .nav .btn { display: none; }
+    .quick { top: auto; bottom: 0; right: 0; left: 0; transform: none; border-radius: 0; padding: 0; display: flex; }
+    .quick a { flex: 1; min-width: 0; width: auto; padding: 9px 0 10px; font-size: 10.5px; letter-spacing: -.03em; white-space: nowrap; }
+    .quick a + a { border-top: 0; border-left: 1px solid rgba(255,255,255,.14); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="logo"><img src="img/logo.png" alt="서울S치과의원" width="436" height="96"></a>
+    <nav class="menu">
+      <a href="#treatments">진료과목</a>
+      <a href="#doctors">의료진</a>
+      <a href="#process">진료 절차</a>
+      <a href="#column">건강칼럼</a>
+      <a href="#visit">오시는 길</a>
+    </nav>
+    <a class="btn btn-primary" href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener">네이버 예약</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div class="wrap">
+      <div class="copy">
+        <span class="eyebrow">안산 중앙역 1번 출구 도보 5분</span>
+        <h1>상담부터 사후관리까지<br>대표원장 2인이 직접 진료합니다</h1>
+        <p class="lead">서울대학교 출신 이승준·김유범 대표원장이 정확한 진단과 충분한 설명으로, 꼭 필요한 치료만 권해 드립니다.</p>
+        <div class="ctas">
+          <a class="btn btn-primary" href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener">네이버 예약하기</a>
+          <a class="btn btn-ghost" href="https://pf.kakao.com/_MrNNxj" target="_blank" rel="noopener">카카오톡 상담</a>
+        </div>
+        <p class="mini-hours"><b>평일</b> 10:00–19:00 · <b>수 야간</b> ~20:00 · <b>토</b> 10:00–14:00 · <b>일요일 휴진</b></p>
+      </div>
+      <div class="hero-photo">
+        <img src="img/doctors.webp" alt="서울S치과의원 이승준·김유범 대표원장" width="841" height="1066">
+      </div>
+    </div>
+  </div>
+
+  <section id="treatments">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">TREATMENTS</span>
+        <h2>자연치아 보존과 구강 기능 회복을 중심으로 진료합니다</h2>
+        <p>정확한 진단을 바탕으로 환자분의 치아 배열, 잇몸 상태, 생활 습관에 맞는 치료 방법을 함께 정합니다.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v6M9 9h6l-1 12h-4L9 9z"/></svg></div>
+          <h3>임플란트</h3>
+          <p>3D CT로 잇몸뼈와 신경관 위치를 확인한 뒤, 오스템·디오 정품 임플란트로 식립합니다.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M6 9v6M10 9v6M14 9v6M18 9v6"/></svg></div>
+          <h3>치아교정</h3>
+          <p>디지털 구강 스캐너로 치열과 교합을 분석해 치아 이동 경로를 미리 계획합니다.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9 5.5-.8z"/></svg></div>
+          <h3>심미보철</h3>
+          <p>지르코니아·올세라믹 보철로 기능과 자연스러운 모양을 함께 회복합니다.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+          <h3>충치 · 신경치료</h3>
+          <p>자연치아를 최대한 살리는 방향으로 치료하며, 전동식 근관치료 시스템으로 신경관을 세밀하게 정리합니다.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 14c2-4 5-6 8-6s6 2 8 6M7 14v5M12 12v7M17 14v5"/></svg></div>
+          <h3>잇몸치료</h3>
+          <p>치석과 염증을 단계적으로 관리해 치아를 지탱하는 잇몸과 잇몸뼈를 지킵니다.</p>
+        </div>
+        <div class="card">
+          <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9c0-3 3-5 7-5s7 2 7 5v3c0 4-3 8-7 8s-7-4-7-8z"/><path d="M9 14h6"/></svg></div>
+          <h3>턱관절치료</h3>
+          <p>턱관절 불편감의 원인을 살펴 구강 전반의 균형을 바로잡는 치료 프로그램을 운영합니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="doctors" class="soft">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">DOCTORS</span>
+        <h2>치료 중간에 담당 의료진이 바뀌지 않습니다</h2>
+        <p>초기 상담과 정밀 진단, 실제 치료와 사후관리까지 대표원장 2인이 직접 책임지고 진행합니다.</p>
+      </div>
+      <div class="doctors">
+        <div class="doc">
+          <div class="photo"><img src="img/dr-lee.webp" alt="이승준 대표원장" loading="lazy"></div>
+          <div>
+            <h3>이승준</h3>
+            <div class="role">대표원장 · 서울대학교 출신</div>
+            <p>작은 불편함도 가볍게 넘기지 않고 원인을 정확히 짚는 꼼꼼한 진단을 우선합니다. 현재 구강 상태와 필요한 치료 과정을 알기 쉽게 설명해 충분히 이해하신 뒤 치료를 시작합니다.</p>
+          </div>
+        </div>
+        <div class="doc">
+          <div class="photo"><img src="img/dr-kim.webp" alt="김유범 대표원장" loading="lazy"></div>
+          <div>
+            <h3>김유범</h3>
+            <div class="role">대표원장 · 서울대학교 출신</div>
+            <p>가족을 치료한다는 마음으로 과잉 진료 없이 진료합니다. 무조건적인 발치를 지양하고, 자연치아를 살릴 수 있는 방법을 여러 방향으로 먼저 검토합니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="facts">
+        <span class="chip">2004년 치과의사 면허 취득</span>
+        <span class="chip">구강악안면외과 · 치아보존과 · 치아보철과 · 치주과 협진</span>
+        <span class="chip">상담부터 사후관리까지 원장 직접 진료</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">FIRST VISIT</span>
+        <h2>처음 오시는 분을 위한 진료 절차</h2>
+        <p>이해하고 동의하신 치료 계획만 진행합니다.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><h3>접수 · 문진</h3><p>전신 질환, 복용 약물, 불편한 부위를 확인합니다.</p></div>
+        <div class="step"><h3>1:1 초진 상담</h3><p>통증과 원하시는 치료 방향, 일정을 먼저 듣습니다.</p></div>
+        <div class="step"><h3>정밀 검사</h3><p>저선량 3D CT로 잇몸뼈와 신경관을 입체적으로 촬영합니다.</p></div>
+        <div class="step"><h3>원장 진단 설명</h3><p>모니터로 결과를 함께 보며 필요한 치료를 설명합니다.</p></div>
+        <div class="step"><h3>치료 계획 · 동의</h3><p>치료 방법과 대안, 예상 기간과 비용을 안내합니다.</p></div>
+        <div class="step"><h3>원장 직접 치료</h3><p>디지털 마취기로 주사 시 긴장감을 줄여 진행합니다.</p></div>
+        <div class="step"><h3>사후관리</h3><p>관리 방법을 안내하고 정기검진 주기를 정해 드립니다.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="soft">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">EQUIPMENT</span>
+        <h2>진단과 치료에 쓰는 장비</h2>
+      </div>
+      <div class="equip">
+        <div class="card"><h3>저선량 3D CT</h3><p>임플란트·사랑니 발치 전 잇몸뼈와 신경관 위치 확인</p></div>
+        <div class="card"><h3>디지털 마취기</h3><p>주입 압력과 속도를 일정하게 조절</p></div>
+        <div class="card"><h3>디지털 구강 스캐너</h3><p>교정 진단과 보철 제작용 3D 데이터 채득</p></div>
+        <div class="card"><h3>전동식 근관치료 시스템</h3><p>신경관 내부를 정밀하게 청소하고 다듬음</p></div>
+        <div class="card"><h3>오스템 · 디오 정품</h3><p>임상적으로 검증된 정품 임플란트 시스템</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="column">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">HEALTH COLUMN</span>
+        <h2>서울S치과 건강칼럼</h2>
+        <p>대표원장이 환자분들께 자주 받는 질문을 정리했습니다.</p>
+      </div>
+      <div class="posts" id="posts">
+        <a class="post" href="https://blog.ansansdental.com/"><div class="thumb"></div><div class="body"><div class="date">불러오는 중</div><h3>건강칼럼 최신 글</h3></div></a>
+      </div>
+      <div class="more"><a class="btn btn-line" href="https://blog.ansansdental.com/" target="_blank">건강칼럼 전체 보기</a></div>
+    </div>
+  </section>
+
+  <section id="visit" class="soft">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="kicker">LOCATION</span>
+        <h2>오시는 길</h2>
+      </div>
+      <div class="visit">
+        <div class="map">
+          <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="서울S치과의원 위치" src="https://www.google.com/maps/embed?pb=!1m5!3m3!1m2!1s0x357b6f1b46344cc3%3A0x41fa396c34e63fb0!2z7ISc7Jq4U-y5mOqzvOydmOybkA!5e0!3m2!1sko!2skr!4v1787119568194!5m2!1sko!2skr"></iframe>
+        </div>
+        <div class="info">
+          <dl>
+            <dt>주소</dt><dd>경기도 안산시 단원구 예술대학로 11, 해남빌딩 4층<br>(엘리베이터 이용)</dd>
+            <dt>지하철</dt><dd>4호선 중앙역 1번 출구에서 도보 약 5분<br>로데오거리 인근</dd>
+            <dt>주차</dt><dd>인근 공영주차장 주차권 등록 지원<br>롯데백화점 앞, 메가박스 앞, 동원빌딩 앞, 금산빌딩 앞, 중앙하이츠빌 앞, 중앙역 사거리 인근. 내원 시 데스크에 문의해 주세요.</dd>
+            <dt>전화</dt><dd><a href="tel:0507-1320-2879">0507-1320-2879</a></dd>
+            <dt>진료시간</dt>
+            <dd>
+              <table class="table">
+                <tr><td>월 · 화 · 목 · 금</td><td>10:00 – 19:00</td></tr>
+                <tr><td>수 (야간진료)</td><td>10:00 – 20:00</td></tr>
+                <tr><td>토</td><td>10:00 – 14:00</td></tr>
+                <tr><td>점심시간 (평일)</td><td>13:00 – 14:00</td></tr>
+                <tr><td>일요일</td><td>휴진</td></tr>
+              </table>
+            </dd>
+            <dt>결제</dt><dd>다온카드, 카카오페이, 애플페이, 바코드·QR 결제</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>서울S치과의원</strong> · 대표원장 이승준, 김유범 · 경기도 안산시 단원구 예술대학로 11 4층<br>
+    사업자등록번호 134-32-35900 · 대표전화 0507-1320-2879
+    <div class="links">
+      <a href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener">네이버 예약</a>
+      <a href="https://pf.kakao.com/_MrNNxj" target="_blank" rel="noopener">카카오톡 채널</a>
+      <a href="https://talk.naver.com/profile/wmjntbv" target="_blank" rel="noopener">네이버톡톡</a>
+      <a href="https://blog.ansansdental.com/">건강칼럼</a>
+      <a href="https://blog.naver.com/ansansdental" target="_blank" rel="noopener">네이버 블로그</a>
+    </div>
+  </div>
+</footer>
+
+<nav class="quick" aria-label="빠른 메뉴">
+  <a href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>예약</a>
+  <a href="https://pf.kakao.com/_MrNNxj" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9L6.5 20l3.6-2.4c.6.1 1.2.1 1.9.1 5 0 9-3.1 9-7s-4-6.7-9-6.7z"/></svg>카톡상담</a>
+  <a href="https://blog.ansansdental.com/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7M9 7h4"/></svg>건강칼럼</a>
+  <a href="https://blog.naver.com/ansansdental" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M9 16V8l6 8V8" stroke-linejoin="round"/></svg>네이버블로그</a>
+  <a href="tel:0507-1320-2879"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>전화상담</a>
+  <a href="#visit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>오시는길</a>
+</nav>
+
+<script>
+  // 블로그 최신 글 6개 (Blogger JSON 피드, 새 글 발행 시 자동 반영)
+  function renderPosts(data) {
+    var entries = (data.feed && data.feed.entry) || [];
+    if (!entries.length) return;
+    var box = document.getElementById("posts");
+    box.innerHTML = "";
+    entries.forEach(function (e) {
+      var link = (e.link.filter(function (l) { return l.rel === "alternate"; })[0] || {}).href;
+      // 본문 이미지가 GitHub에 있어 Blogger 썸네일이 없음 → 본문 첫 이미지 사용
+      var m = (e.content && e.content.$t || "").match(/<img[^>]+src="([^"]+)"/);
+      var thumb = m ? m[1] : "";
+      var a = document.createElement("a");
+      a.className = "post"; a.href = link;
+      a.innerHTML = '<div class="thumb"></div><div class="body"><div class="date"></div><h3></h3></div>';
+      if (thumb) a.querySelector(".thumb").style.backgroundImage = "url('" + thumb + "')";
+      a.querySelector(".date").textContent = e.published.$t.slice(0, 10).replace(/-/g, ".");
+      a.querySelector("h3").textContent = e.title.$t;
+      box.appendChild(a);
+    });
+  }
+</script>
+<script src="https://blog.ansansdental.com/feeds/posts/default?alt=json-in-script&amp;max-results=6&amp;callback=renderPosts" async></script>
+</body>
+</html>
