@@ -268,7 +268,6 @@
   .quick a + a { border-top: 1px solid rgba(255,255,255,.14); }
   .quick svg { width: 24px; height: 24px; }
   .quick .mobile-label { display: none; }
-  .notice-open { margin-top: 18px; padding: 0; min-height: 32px; background: none; border: 0; color: #fff; font: inherit; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
   .notice-dialog { width: min(500px, calc(100vw - 32px)); max-height: calc(100dvh - 48px); border: 0; border-radius: 20px; padding: 0; color: var(--ink); background: #fbf9f4; box-shadow: 0 24px 80px rgba(15,25,55,.3); }
   .notice-dialog::backdrop { background: rgba(15,25,55,.42); }
   .notice-content { padding: 30px 28px 22px; }
@@ -284,11 +283,6 @@
   .notice-cta .btn { min-width: 180px; height: 48px; }
   .notice-footer { display: flex; justify-content: space-between; gap: 12px; padding: 6px 14px; background: var(--navy); }
   .notice-footer button { min-height: 44px; padding: 4px 8px; border: 0; background: none; color: #fff; font: inherit; font-size: 13px; cursor: pointer; }
-  .notice-teaser { position: fixed; right: 18px; bottom: calc(80px + env(safe-area-inset-bottom)); left: 18px; z-index: 35; display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid #e3d8bd; border-radius: 14px; background: #fbf9f4; box-shadow: 0 8px 30px rgba(15,25,55,.15); }
-  .notice-teaser[hidden] { display: none; }
-  .notice-teaser button { min-height: 44px; border: 0; background: none; color: var(--navy); cursor: pointer; }
-  .notice-teaser .teaser-main { flex: 1; text-align: left; font: inherit; font-size: 14px; font-weight: 600; }
-  .notice-teaser .teaser-close { width: 44px; flex-shrink: 0; font-size: 24px; }
 
   @media (min-width: 961px) and (max-width: 1320px) {
     .wrap { padding-right: 96px; }
@@ -365,7 +359,6 @@
           <dt>토</dt><dd>10:00~14:00 <span>(점심시간 없음)</span></dd>
         </dl>
         <p class="mini-off">*일요일, 공휴일 휴진</p></div>
-        <button type="button" class="notice-open" data-notice-open>서울S치과 진료 안내 보기</button>
       </div>
       <div class="hero-photo">
         <img src="img/doctors.webp" alt="서울S치과의원 이승준·김유범 대표원장" width="1135" height="900" fetchpriority="high">
@@ -649,10 +642,9 @@
   </div>
   <div class="notice-footer"><button type="button" data-notice-hide>24시간 다시 보지 않기</button><button type="button" data-notice-close>닫기 &times;</button></div>
 </dialog>
-<aside class="notice-teaser" id="noticeTeaser" aria-label="서울S치과 진료 안내" hidden><button type="button" class="teaser-main" data-notice-open>서울S치과의 진료 안내를 확인하세요 &rarr;</button><button type="button" class="teaser-close" data-notice-dismiss aria-label="진료 안내 알림 닫기">&times;</button></aside>
 <script>
   (function () {
-    var dialog = document.getElementById("clinicNotice"), teaser = document.getElementById("noticeTeaser");
+    var dialog = document.getElementById("clinicNotice");
     if (!dialog || typeof dialog.showModal !== "function") return;
     var hideKey = "seouls.notice.hideUntil", seenKey = "seouls.notice.seen", previousFocus;
     function read(store, key) { try { return window[store].getItem(key); } catch (e) { return null; } }
@@ -661,17 +653,14 @@
     function openNotice() {
       if (dialog.open) return;
       previousFocus = document.activeElement;
-      teaser.hidden = true;
       dialog.showModal();
       seen();
     }
-    document.querySelectorAll("[data-notice-open]").forEach(function (button) { button.addEventListener("click", openNotice); });
     document.querySelectorAll("[data-notice-close]").forEach(function (button) { button.addEventListener("click", function () { dialog.close(); }); });
     document.querySelector("[data-notice-hide]").addEventListener("click", function () {
       write("localStorage", hideKey, String(Date.now() + 24 * 60 * 60 * 1000));
       dialog.close();
     });
-    document.querySelector("[data-notice-dismiss]").addEventListener("click", function () { teaser.hidden = true; seen(); });
     dialog.addEventListener("click", function (event) {
       if (event.target !== dialog) return;
       var rect = dialog.getBoundingClientRect();
@@ -681,11 +670,11 @@
     function offerNotice() {
       if (document.hidden || document.querySelector("dialog[open]")) return;
       if (Number(read("localStorage", hideKey)) > Date.now() || read("sessionStorage", seenKey)) return;
-      if (window.matchMedia("(max-width: 600px)").matches) { teaser.hidden = false; seen(); }
-      else openNotice();
+      openNotice();
     }
-    window.setTimeout(offerNotice, 8000);
-    document.addEventListener("visibilitychange", offerNotice, {once: true});
+    // 첫 방문 시 바로 열기 (24시간 숨김·이번 방문에서 이미 본 경우 제외). 숨은 탭으로 열렸다면 탭을 볼 때 열기
+    if (document.hidden) document.addEventListener("visibilitychange", offerNotice, {once: true});
+    else window.setTimeout(offerNotice, 300);
   })();
 </script>
 
