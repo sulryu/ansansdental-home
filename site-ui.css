@@ -27,3 +27,19 @@
 .hero .notice-open{order:7;justify-self:start;margin:8px 0 18px}.quick a{font-size:12px}.notice-content{padding:30px 18px 16px}.notice-dialog h2{font-size:25px}.notice-row{padding:10px 12px;gap:10px}.notice-row p{font-size:13px}
 }
 @media(max-width:360px){.site-logo img{height:25px}.site-header-inner{padding:0 12px}.site-reserve{padding:0 10px;font-size:11px}}
+
+/* Treatment and physician dropdowns */
+.site-nav {position:relative;align-items:center}
+.site-dropdown {margin:0;padding:0;border:0;position:relative}
+.site-dropdown summary {display:flex;align-items:center;gap:6px;cursor:pointer;list-style:none;font-size:14px;font-weight:500;min-height:44px;color:#5b6475}
+.site-dropdown summary::-webkit-details-marker {display:none}.site-dropdown summary::after{content:'⌄';font-size:14px}.site-dropdown[open] summary{color:#2a3a86}
+.site-dropdown summary:focus-visible{outline:3px solid #4a7eae;outline-offset:2px;border-radius:4px}
+.site-dropdown-panel {position:absolute;top:100%;left:0;width:540px;background:#fff;padding:16px;border:1px solid #e3e7ef;border-radius:14px;box-shadow:0 12px 32px #1d243322;z-index:45}
+.site-dropdown-panel a {display:flex;flex-direction:column;justify-content:center;gap:6px;min-height:76px;padding:12px;border-radius:10px;color:#2a3a86;background:#f4f6fa;text-decoration:none;font-size:14px}
+.site-dropdown-panel a:hover,.site-dropdown-panel a:focus-visible {background:#e8eef8}.site-dropdown-panel span{font-size:12px;color:#5b6475}
+.treatment-dropdown {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.doctor-dropdown .site-dropdown-panel {width:340px}
+.mobile-treatment-menu {border:1px solid #e3e7ef;border-radius:12px;padding:0;margin:20px 0 0}
+.mobile-treatment-menu summary{padding:12px;min-height:48px;color:#2a3a86;font-weight:600;cursor:pointer}
+.mobile-treatment-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 10px 10px}
+.mobile-treatment-links a{display:flex;flex-direction:column;padding:10px;background:#f4f6fa;border-radius:8px;text-decoration:none;color:#2a3a86;min-height:64px;font-size:14px}.mobile-treatment-links span{font-size:12px;color:#5b6475}
