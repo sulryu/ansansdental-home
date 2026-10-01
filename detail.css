@@ -39,3 +39,10 @@ footer a { color:#fff; }
 footer nav { margin-top:18px; }
 @media(max-width:720px) { .header-inner { flex-direction:column; align-items:flex-start; padding:18px 0; gap:14px; } .grid { grid-template-columns:1fr; } h1 { font-size:29px; } .lead { font-size:17px; } .doctor { grid-template-columns:100px 1fr; gap:16px; } .doctor img { width:100px; } .wrap { padding:0 20px; } }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+/* 상세 페이지 비교표 */
+main table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; }
+main th, main td { padding: 11px 14px; border-bottom: 1px solid #e3e7ef; text-align: left; }
+main thead th { background: #f4f6fa; color: #5b6475; font-weight: 600; font-size: 14px; }
+main tbody td:first-child { color: #2a3a86; font-weight: 600; white-space: nowrap; }
+@media (max-width: 600px) { main table { font-size: 14px; } main th, main td { padding: 9px 8px; } }
