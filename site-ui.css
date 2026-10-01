@@ -29,10 +29,10 @@
 @media(max-width:360px){.site-logo img{height:25px}.site-header-inner{padding:0 12px}.site-reserve{padding:0 10px;font-size:11px}}
 
 /* Treatment and physician dropdowns */
-.site-nav {position:relative;align-items:center}
+.site-nav {position:relative;align-items:center;color:#1d2433}.site-nav a {color:inherit}
 .site-dropdown {margin:0;padding:0;border:0;position:relative}
-.site-dropdown summary {display:flex;align-items:center;gap:6px;cursor:pointer;list-style:none;font-size:14px;font-weight:500;min-height:44px;color:#5b6475}
-.site-dropdown summary::-webkit-details-marker {display:none}.site-dropdown summary::after{content:'⌄';font-size:14px}.site-dropdown[open] summary{color:#2a3a86}
+.site-dropdown summary {display:flex;align-items:center;gap:6px;cursor:pointer;list-style:none;font:inherit;min-height:44px;color:inherit}
+.site-dropdown summary::-webkit-details-marker {display:none}.site-dropdown summary::after{content:none}
 .site-dropdown summary:focus-visible{outline:3px solid #4a7eae;outline-offset:2px;border-radius:4px}
 .site-dropdown-panel {position:absolute;top:100%;left:0;width:540px;background:#fff;padding:16px;border:1px solid #e3e7ef;border-radius:14px;box-shadow:0 12px 32px #1d243322;z-index:45}
 .site-dropdown-panel a {display:flex;flex-direction:column;justify-content:center;gap:6px;min-height:76px;padding:12px;border-radius:10px;color:#2a3a86;background:#f4f6fa;text-decoration:none;font-size:14px}
