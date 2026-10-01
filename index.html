@@ -343,26 +343,10 @@
     .post, .btn { transition: none; }
   }
 </style>
-</head>
+<link rel="stylesheet" href="/site-ui.css"><script src="/site-ui.js" defer></script></head>
 <body>
 
-<header>
-  <div class="wrap nav">
-    <a href="#top" class="logo"><img src="img/logo.png" alt="서울S치과의원" width="436" height="96"></a>
-    <nav class="menu">
-      <a href="#treatments">진료과목</a>
-      <a href="#doctors">의료진</a>
-      <a href="#process">진료 절차</a>
-      <a href="#column">건강칼럼</a>
-      <a href="#faq">FAQ</a>
-      <a href="#visit">오시는 길</a>
-    </nav>
-    <div class="header-actions">
-      <a class="btn btn-primary" href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener">네이버 예약</a>
-      <a class="btn btn-talk" href="https://talk.naver.com/profile/wmjntbv" target="_blank" rel="noopener" aria-label="네이버 톡톡 상담하기">상담하기</a>
-    </div>
-  </div>
-</header>
+<header class="site-header"><div class="site-header-inner"><a class="site-logo" href="/"><img src="/img/logo.png" alt="서울S치과의원" width="436" height="96"></a><nav class="site-nav" aria-label="주요 메뉴"><a href="/#treatments">진료과목</a><a href="/#doctors">의료진</a><a href="/clinical-cases.html">임상사례</a><a href="/#faq">FAQ</a><a href="/#visit">오시는 길</a></nav><div class="site-actions"><a class="site-reserve" href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener">네이버 예약</a><a class="site-talk" href="https://talk.naver.com/profile/wmjntbv" target="_blank" rel="noopener">톡톡 상담</a><button type="button" class="site-menu-button" data-site-menu aria-haspopup="dialog" aria-controls="siteMenu" aria-label="전체 메뉴 열기"><span aria-hidden="true">☰</span></button></div></div></header>
 
 <main id="top">
   <div class="hero">
@@ -373,14 +357,14 @@
         <p class="lead">서울대학교 출신 이승준·김유범 대표원장이 정확한 진단과 충분한 설명으로, 꼭 필요한 치료만 권해 드립니다.</p>
         <div class="ctas">
           <a class="btn btn-primary" href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener">네이버 예약하기</a>
-          <a class="btn btn-ghost" href="https://pf.kakao.com/_MrNNxj" target="_blank" rel="noopener">카카오톡 상담</a>
+          <a class="btn btn-ghost" href="https://pf.kakao.com/_MrNNxj" target="_blank" rel="noopener">카카오 상담</a>
         </div>
-        <dl class="mini-hours">
+        <div class="hero-hours"><dl class="mini-hours">
           <dt>월 · 화 · 목 · 금</dt><dd>10:00~19:00</dd>
           <dt>수</dt><dd>10:00~20:00 <span>(야간진료)</span></dd>
           <dt>토</dt><dd>10:00~14:00 <span>(점심시간 없음)</span></dd>
         </dl>
-        <p class="mini-off">*일요일, 공휴일 휴진</p>
+        <p class="mini-off">*일요일, 공휴일 휴진</p></div>
         <button type="button" class="notice-open" data-notice-open>서울S치과 진료 안내 보기</button>
       </div>
       <div class="hero-photo">
@@ -647,15 +631,7 @@
   </div>
 </footer>
 
-<nav class="quick" aria-label="빠른 메뉴">
-  <a href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>예약</a>
-  <a href="https://talk.naver.com/profile/wmjntbv" target="_blank" rel="noopener" aria-label="네이버 톡톡 상담"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v12H10l-6 4V4z"/><path d="M8 9h8M8 12h5"/></svg>톡톡상담</a>
-  <a href="https://pf.kakao.com/_MrNNxj" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9L6.5 20l3.6-2.4c.6.1 1.2.1 1.9.1 5 0 9-3.1 9-7s-4-6.7-9-6.7z"/></svg>카톡상담</a>
-  <a href="https://blog.ansansdental.com/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7M9 7h4"/></svg>건강칼럼</a>
-  <a href="https://blog.naver.com/ansansdental" target="_blank" rel="noopener" aria-label="네이버 블로그"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M9 16V8l6 8V8" stroke-linejoin="round"/></svg><span class="desktop-label">네이버블로그</span><span class="mobile-label">블로그</span></a>
-  <a href="tel:0507-1320-2879"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>전화상담</a>
-  <a href="#visit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>오시는길</a>
-</nav>
+<nav class="quick" aria-label="빠른 메뉴"><a href="https://naver.me/xcn0EKwS" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>예약</a><a href="https://talk.naver.com/profile/wmjntbv" target="_blank" rel="noopener" aria-label="네이버 톡톡 상담"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v12H10l-6 4V4z"/><path d="M8 9h8M8 12h5"/></svg>톡톡상담</a><a href="tel:0507-1320-2879"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>전화</a><a href="#visit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>오시는길</a><a class="quick-extra" href="https://pf.kakao.com/_MrNNxj" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9L6.5 20l3.6-2.4c.6.1 1.2.1 1.9.1 5 0 9-3.1 9-7s-4-6.7-9-6.7z"/></svg>카카오 상담</a><a class="quick-extra" href="https://blog.ansansdental.com/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7M9 7h4"/></svg>건강칼럼</a><a class="quick-extra" href="https://blog.naver.com/ansansdental" target="_blank" rel="noopener" aria-label="네이버 블로그"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="4"/><path d="M9 16V8l6 8V8" stroke-linejoin="round"/></svg><span class="desktop-label">네이버블로그</span><span class="mobile-label">블로그</span></a><button type="button" class="quick-more" data-site-menu aria-haspopup="dialog" aria-controls="siteMenu"><span aria-hidden="true">•••</span>더보기</button></nav>
 
 <dialog class="notice-dialog" id="clinicNotice" aria-labelledby="noticeTitle" aria-describedby="noticeIntro">
   <button type="button" class="notice-x" data-notice-close aria-label="진료 안내 닫기" autofocus>&times;</button>
@@ -665,10 +641,9 @@
     <div class="notice-items">
       <div class="notice-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="6" r="3"/><path d="M5 21v-5a7 7 0 0 1 14 0v5M9 17h6M12 14v6"/></svg><div><h3>대표원장 2인 직접 진료</h3><p>서울대학교 출신 이승준·김유범 원장이<br>상담부터 치료와 사후관리까지 참여합니다.</p></div></div>
       <div class="notice-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 3c-3 2-2 7-1 10l2 7c.5 2 2 2 3-1l3-6 3 6c1 3 2.5 3 3 1l2-7c1-3 2-8-1-10-2-1-4 0-7 1-3-1-5-2-7-1z"/></svg><div><h3>자연치아 보존을 먼저 검토</h3><p>현재 치아와 잇몸 상태를 설명하고<br>필요한 치료 방법을 함께 정합니다.</p></div></div>
-      <div class="notice-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v6M8 9h8l-2 12h-4L8 9zM9 13h6M10 17h4"/></svg><div><h3>임플란트 · 보철 진료</h3><p>진단과 치료 계획, 보철 제작 과정과<br>치료 이후의 관리 방법을 안내합니다.</p></div></div>
       <div class="notice-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 10h16M8 3v4M16 3v4M9 15l2 2 4-4"/></svg><div><h3>수요일 야간 · 토요일 진료</h3><p>수요일 오후 8시, 토요일 오후 2시까지<br>일요일과 공휴일은 휴진합니다.</p></div></div>
     </div>
-    <div class="notice-cta"><a class="btn btn-primary" href="https://talk.naver.com/profile/wmjntbv" target="_blank" rel="noopener" aria-label="네이버 톡톡 상담하기">상담하기</a></div>
+    <div class="notice-cta"><a class="btn btn-primary" href="https://talk.naver.com/profile/wmjntbv" target="_blank" rel="noopener" aria-label="네이버 톡톡 상담하기">톡톡 상담</a></div>
   </div>
   <div class="notice-footer"><button type="button" data-notice-hide>24시간 다시 보지 않기</button><button type="button" data-notice-close>닫기 &times;</button></div>
 </dialog>
@@ -702,7 +677,7 @@
     });
     dialog.addEventListener("close", function () { if (previousFocus && previousFocus.isConnected) previousFocus.focus({preventScroll: true}); });
     function offerNotice() {
-      if (document.hidden) return;
+      if (document.hidden || document.querySelector("dialog[open]")) return;
       if (Number(read("localStorage", hideKey)) > Date.now() || read("sessionStorage", seenKey)) return;
       if (window.matchMedia("(max-width: 600px)").matches) { teaser.hidden = false; seen(); }
       else openNotice();
@@ -760,5 +735,5 @@
   }
 </script>
 <script src="https://blog.ansansdental.com/feeds/posts/default?alt=json-in-script&amp;max-results=6&amp;callback=renderPosts" async></script>
-</body>
+<dialog id="siteMenu" class="site-menu-dialog" aria-labelledby="siteMenuTitle"><div class="site-menu-heading"><h2 id="siteMenuTitle">전체 메뉴</h2><button type="button" data-site-menu-close aria-label="전체 메뉴 닫기" autofocus>×</button></div><nav class="site-menu-links" aria-label="전체 메뉴"><a href="/#treatments">진료과목</a><a href="/#doctors">의료진 소개</a><a href="/clinical-cases.html">임상사례</a><a href="/#process">진료 절차</a><a href="/#faq">자주 묻는 질문</a><a href="/#visit">오시는 길 · 진료시간</a></nav><div class="site-menu-channels"><a href="https://talk.naver.com/profile/wmjntbv" target="_blank" rel="noopener">톡톡 상담</a><a href="https://pf.kakao.com/_MrNNxj" target="_blank" rel="noopener">카카오 상담</a><a href="https://blog.ansansdental.com/">건강칼럼</a><a href="https://blog.naver.com/ansansdental" target="_blank" rel="noopener">네이버 블로그</a></div></dialog></body>
 </html>

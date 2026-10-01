@@ -5,6 +5,24 @@ const $ = id => document.getElementById(id);
 const form = $('caseForm');
 let current = null, busy = false, dirty = false, offset = 0;
 let bodyEditor, previewEditor;
+const photoVersions = {before: 0, after: 0}, localPhotos = {};
+async function previewPhoto(name, file, path) {
+  const version = ++photoVersions[name], image = $(name + 'Preview');
+  if (localPhotos[name]) URL.revokeObjectURL(localPhotos[name]);
+  delete localPhotos[name]; image.hidden = true; image.removeAttribute('src');
+  try {
+    let url;
+    if (file) { validatePhoto(file); url = URL.createObjectURL(file); localPhotos[name] = url; }
+    else if (path) url = await api.photoURL(path, true);
+    if (version !== photoVersions[name] || !url) return;
+    image.onerror = () => { image.hidden = true; $(name + 'Existing').textContent = '사진을 불러오지 못했습니다. 다시 선택하거나 새로고침해 주세요.'; };
+    image.src = url; image.hidden = false;
+  } catch (error) { if (version === photoVersions[name]) $(name + 'Existing').textContent = error.message; }
+}
+for (const name of ['before', 'after']) $(name).addEventListener('change', () => {
+  $(name + 'Existing').textContent = '';
+  previewPhoto(name, $(name).files[0], current?.[name + '_image']);
+});
 function syncBody() {
   form.elements.body.value = encodeBody(bodyEditor.getContents().ops);
   $('bodyCount').textContent = `${bodyText(form.elements.body.value).length}자 · 서식 포함 ${form.elements.body.value.length.toLocaleString()} / 12,000자`;
@@ -13,6 +31,7 @@ function syncBody() {
 function prepareBody() {
   if (bodyEditor) return;
   bodyEditor = createEditor($('bodyEditor'), '#bodyToolbar');
+  $('bodyToolbar').querySelector('.ql-header').textContent = '소제목';
   let selection = {index: 0, length: 0};
   bodyEditor.on('selection-change', range => { if (range) selection = range; });
   for (const [id, format] of [['bodyFont', 'font'], ['bodySize', 'size'], ['bodyColor', 'color']]) {
@@ -40,6 +59,7 @@ function confirmDiscard() { return !dirty || confirm('저장하지 않은 내용
 function openCase(row) {
   if (busy || !confirmDiscard()) return;
   current = row; form.reset();
+  for (const name of ['before', 'after']) previewPhoto(name, null, row?.[name + '_image']);
   for (const name of ['title', 'category', 'doctor', 'treatment_date', 'summary']) form.elements[name].value = row?.[name] || '';
   for (const name of ['consent_confirmed', 'published']) form.elements[name].checked = Boolean(row?.[name]);
   for (const name of ['before', 'after']) $(name + 'Existing').textContent = row?.[name + '_image'] ? '기존 사진이 있습니다. 새 파일을 선택하면 교체됩니다.' : '';
@@ -75,6 +95,7 @@ $('logout').addEventListener('click', async () => {
   try { await api.logout(); message('loginStatus', '로그아웃되었습니다.'); }
   catch { message('loginStatus', '이 브라우저에서 로그아웃했습니다. 연결이 불안정해 서버 세션 종료는 확인하지 못했습니다.', true); }
   current = null; dirty = false; form.reset(); form.hidden = true; $('adminList').replaceChildren(); editor(false);
+  for (const name of ['before', 'after']) previewPhoto(name);
 });
 $('newCase').addEventListener('click', () => openCase(null));
 $('cancelEdit').addEventListener('click', () => { if (!busy && confirmDiscard()) { form.hidden = true; dirty = false; } });
@@ -112,6 +133,7 @@ form.addEventListener('submit', async event => {
     const rows = await api.save(id, value);
     if (!rows?.length) throw Error('저장을 확인하지 못했습니다. 다시 시도해 주세요.');
     saved = true; current = rows[0]; dirty = false; form.elements.before.value = ''; form.elements.after.value = ''; $('deleteCase').hidden = false;
+    for (const name of ['before', 'after']) previewPhoto(name, null, current[name + '_image']);
     for (const name of ['before', 'after']) $(name + 'Existing').textContent = current[name + '_image'] ? '저장된 사진이 있습니다. 새 파일을 선택하면 교체됩니다.' : '';
     message('saveStatus', value.published ? '공개 사례로 저장했습니다.' : '임시 저장했습니다.');
     await load(true);
@@ -145,6 +167,13 @@ $('previewCase').addEventListener('click', () => {
   $('casePreview').showModal();
   previewEditor ||= createEditor($('previewBody'));
   previewEditor.setContents({ops: decodeBody(form.elements.body.value)}, 'silent');
+  $('previewPhotos').replaceChildren();
+  for (const [name, caption] of [['before', '치료 전'], ['after', '치료 후']]) {
+    const image = $(name + 'Preview');
+    if (image.hidden || !image.getAttribute('src')) continue;
+    const figure = document.createElement('figure'), label = document.createElement('figcaption');
+    label.textContent = caption; figure.append(image.cloneNode(), label); $('previewPhotos').append(figure);
+  }
 });
 $('closePreview').addEventListener('click', () => $('casePreview').close());
 $('casePreview').addEventListener('close', () => $('previewCase').focus());
