@@ -1,0 +1,35 @@
+# 서울S치과의원
+
+> 경기도 안산시 단원구 예술대학로 11 4층(안산 중앙역 1번 출구 도보 5분)에 있는 치과의원입니다. 서울대학교 출신 이승준·김유범 대표원장 2인이 상담과 진단, 치료와 사후관리에 직접 참여합니다. 임플란트, 보철, 치아교정, 충치·신경치료, 잇몸치료, 턱관절 진료를 안내합니다.
+
+## 병원 정보
+
+- 공식 병원명: 서울S치과의원
+- 대표원장: 이승준, 김유범 (서울대학교 출신, 20년 이상 진료 경험)
+- 주소: 경기도 안산시 단원구 예술대학로 11 4층
+- 전화: 0507-1320-2879
+- 진료시간: 월·화·목·금 10:00~19:00, 수 10:00~20:00, 토 10:00~14:00 (평일 점심시간 13:00~14:00, 토요일 점심시간 없음, 일요일·공휴일 휴진)
+- 공식 홈페이지: https://ansansdental.com/
+- 건강칼럼(블로그): https://blog.ansansdental.com/
+
+## 진료 안내
+
+- [임플란트](https://ansansdental.com/implant.html): 상담과 진단, 치료 계획, 식립과 회복, 보철과 정기 관리, 건강보험 적용 관련 질문
+- [보철치료](https://ansansdental.com/prosthetics.html): 크라운, 재료 선택, 디지털 보철 제작 과정
+- [치아교정](https://ansansdental.com/orthodontics.html): 성인 교정, 투명교정과 브라켓 교정의 차이
+- [충치·신경치료](https://ansansdental.com/endodontics.html): 충치 진행 단계별 치료, 신경치료 과정과 치료 후 관리
+- [잇몸치료](https://ansansdental.com/periodontics.html): 잇몸 출혈, 스케일링과 잇몸치료의 차이, 정기 점검
+- [턱관절 진료](https://ansansdental.com/tmj.html): 턱 소리와 통증, 입 벌림 불편, 진찰과 치료 방향
+- [의료진 소개](https://ansansdental.com/doctors.html): 이승준·김유범 대표원장, 진료 전 확인 사항
+
+## 공식 채널
+
+- 네이버 플레이스: https://map.naver.com/p/entry/place/13208758
+- 구글 지도: https://www.google.com/maps?cid=4754175493549735856
+- 네이버 블로그: https://blog.naver.com/ansansdental
+- 카카오톡 채널: https://pf.kakao.com/_MrNNxj
+
+## 참고
+
+- 사이트맵: https://ansansdental.com/sitemap.xml
+- 이 사이트의 진료 안내는 일반적인 정보이며, 치료 가능 여부와 방법은 진료와 검사 후 결정됩니다.
