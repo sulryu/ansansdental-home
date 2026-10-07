@@ -50,4 +50,4 @@ main tbody td:first-child { color: #2a3a86; font-weight: 600; white-space: nowra
 .career-title { margin:14px 0 6px; font-size:14px; color:var(--navy); }
 .career { margin:0; padding-left:18px; font-size:14px; line-height:1.7; color:var(--ink); }
 .career li { margin:0; }
-@media(min-width:721px) { section[aria-labelledby="team"] .grid { grid-template-columns:1fr; gap:20px; } section[aria-labelledby="team"] .doctor { width:min(100%,620px); } section[aria-labelledby="team"] #kim { margin-left:auto; grid-template-columns:1fr 140px; } section[aria-labelledby="team"] #kim img { order:2; } }
+@media(min-width:721px) { section[aria-labelledby="team"] .grid { grid-template-columns:1fr; gap:20px; } section[aria-labelledby="team"] #kim { grid-template-columns:1fr 140px; } section[aria-labelledby="team"] #kim img { order:2; } }
