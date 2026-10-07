@@ -9,7 +9,7 @@ const maps = {
 };
 const num=value=>Number.isFinite(Number(value))?Number(value).toLocaleString('ko-KR'):'0';
 function el(tag,text){const node=document.createElement(tag);if(text!==undefined)node.textContent=text;return node;}
-function label(section,row){const key=row.dimensions?.[0]||'';if(section==='pages'){const path=row.dimensions?.[1]||'';return `${key==='ansansdental.com'?'홈페이지':key} · ${maps.pages[path]||path}`;}return maps[section]?.[key]||(section==='region'?'확인 불가':section==='device'?'기타':key);}
+function label(section,row){const key=row.dimensions?.[0]||'';if(section==='search_queries')return key.length>20?key.slice(0,20)+'...':key;if(section==='pages'){const path=row.dimensions?.[1]||'';return `${key==='ansansdental.com'?'홈페이지':key} · ${maps.pages[path]||path}`;}return maps[section]?.[key]||(section==='region'?'확인 불가':section==='device'?'기타':key);}
 export function renderStats(container,snapshots){
  container.replaceChildren();
  for(const [section,title,heading,metric] of definitions){
