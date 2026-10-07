@@ -1,0 +1,7 @@
+.env
+.env.*
+*service-account*.json
+*service_account*.json
+*credentials*.json
+client_secret*.json
+__pycache__/
