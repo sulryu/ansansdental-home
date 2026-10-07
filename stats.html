@@ -14,8 +14,8 @@
   .zoom button { min-width: 34px; height: 30px; border: 1px solid #cfd5dc; background: #fff; border-radius: 6px; font-size: 15px; cursor: pointer; }
   .zoom button:hover { background: #eef2f6; }
   .zoom span { min-width: 44px; text-align: center; }
-  .frame { height: calc(100% - 50px); overflow-x: hidden; overflow-y: auto; }
-  iframe { border: 0; display: block; transform-origin: 0 0; }
+  .frame { position: relative; height: calc(100% - 50px); overflow: hidden; }
+  iframe { position: absolute; left: 0; top: 0; border: 0; display: block; transform-origin: 0 0; }
   @media (max-width: 640px) { header small { display: none; } }
 </style>
 </head>
@@ -43,7 +43,7 @@
     var k = z / 100;
     rpt.style.transform = 'scale(' + k + ')';
     rpt.style.width = (100 / k) + '%';
-    rpt.style.height = (frame.clientHeight / k) + 'px';
+    rpt.style.height = (100 / k) + '%';
     val.textContent = z + '%';
     try { localStorage.setItem(KEY, String(z)); } catch (e) {}
   }
