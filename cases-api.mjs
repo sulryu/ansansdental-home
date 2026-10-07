@@ -58,6 +58,7 @@ export function createAPI(config, fetcher = fetch) {
     isAdmin: () => token ? request('/rest/v1/rpc/is_case_admin', {method: 'POST', body: {}, admin: true}) : Promise.resolve(false),
     async logout() { try { if (token) await request('/auth/v1/logout', {method: 'POST', admin: true}); } finally { setToken(''); } },
     list: (admin = false, offset = 0) => request(`/rest/v1/clinical_cases?select=*&order=treatment_date.desc.nullslast,created_at.desc&limit=20&offset=${offset}${admin ? '' : '&published=eq.true'}`, {admin}),
+    stats: period => ['d7', 'd28', 'd90'].includes(period) ? request(`/rest/v1/stats_snapshots?select=period,section,payload,updated_at&period=eq.${period}`, {admin: true}) : Promise.reject(Error('통계 기간을 확인해 주세요.')),
     get: id => uuidPattern.test(id) ? request(`/rest/v1/clinical_cases?id=eq.${id}&select=*&published=eq.true&limit=1`).then(rows => rows[0]) : Promise.reject(Error('사례 주소를 확인해 주세요.')),
     async save(id, value) {
       validateCase(value);

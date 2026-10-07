@@ -1,3 +1,4 @@
+import {setupStats} from './stats-admin.mjs';
 import {createAPI, validateCase, validatePhoto} from './cases-api.mjs';
 import {createEditor, decodeBody, encodeBody, bodyText, safeLink} from './cases-richtext.mjs';
 const api = createAPI(window.SEOULS_CASES || {});
@@ -55,6 +56,7 @@ function prepareBody() {
 function message(id, text, error = false) { $(id).textContent = text; $(id).classList.toggle('error', error); }
 function editor(show) { $('loginPanel').hidden = show; $('editorPanel').hidden = !show; }
 function reauthenticate(error) { if (error.status === 401) { editor(false); message('loginStatus', error.message, true); $('password').focus(); } }
+const clearStats = setupStats(api, reauthenticate);
 function confirmDiscard() { return !dirty || confirm('저장하지 않은 내용을 닫을까요?'); }
 function openCase(row) {
   if (busy || !confirmDiscard()) return;
@@ -94,7 +96,7 @@ $('logout').addEventListener('click', async () => {
   if (busy || !confirmDiscard()) return;
   try { await api.logout(); message('loginStatus', '로그아웃되었습니다.'); }
   catch { message('loginStatus', '이 브라우저에서 로그아웃했습니다. 연결이 불안정해 서버 세션 종료는 확인하지 못했습니다.', true); }
-  current = null; dirty = false; form.reset(); form.hidden = true; $('adminList').replaceChildren(); editor(false);
+  clearStats?.(); current = null; dirty = false; form.reset(); form.hidden = true; $('adminList').replaceChildren(); editor(false);
   for (const name of ['before', 'after']) previewPhoto(name);
 });
 $('newCase').addEventListener('click', () => openCase(null));
