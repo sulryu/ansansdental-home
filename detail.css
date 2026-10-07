@@ -46,3 +46,7 @@ main th, main td { padding: 11px 14px; border-bottom: 1px solid #e3e7ef; text-al
 main thead th { background: #f4f6fa; color: #5b6475; font-weight: 600; font-size: 14px; }
 main tbody td:first-child { color: #2a3a86; font-weight: 600; white-space: nowrap; }
 @media (max-width: 600px) { main table { font-size: 14px; } main th, main td { padding: 9px 8px; } }
+
+.career-title { margin:14px 0 6px; font-size:14px; color:var(--navy); }
+.career { margin:0; padding-left:18px; font-size:14px; line-height:1.7; color:var(--ink); }
+.career li { margin:0; }
