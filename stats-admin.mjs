@@ -9,8 +9,12 @@ const maps = {
 };
 const num=value=>Number.isFinite(Number(value))?Number(value).toLocaleString('ko-KR'):'0';
 function el(tag,text){const node=document.createElement(tag);if(text!==undefined)node.textContent=text;return node;}
+const aiList=[[/chatgpt|openai/i,'ChatGPT'],[/perplexity/i,'Perplexity'],[/gemini|bard/i,'Gemini'],[/copilot/i,'Copilot'],[/claude|anthropic/i,'Claude'],[/grok|x\.ai/i,'Grok'],[/you\.com|phind|meta\.ai|deepseek|kimi/i,'기타 AI']];
+const aiName=source=>(aiList.find(([re])=>re.test(source))||[])[1];
+function aiSummary(rows){const by={};let total=0;for(const r of rows){const n=aiName(r.dimensions?.[0]||'');if(n){const v=Number(r.metrics?.[0])||0;by[n]=(by[n]||0)+v;total+=v;}}
+ const p=el('p',total?`AI 서비스에서 들어온 방문 ${num(total)}회 (${Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([n,v])=>`${n} ${num(v)}`).join(' · ')})`:'AI 서비스(ChatGPT, Perplexity 등)에서 들어온 방문이 아직 없습니다');p.className='stats-ai';return p;}
 const cut=(t,n)=>t.length>n?t.slice(0,n)+'...':t;
-function label(section,row){const key=row.dimensions?.[0]||'';if(section==='search_queries')return cut(key,20);if(section==='pages'){const path=row.dimensions?.[1]||'';return `${key==='ansansdental.com'?'홈페이지':key==='blog.ansansdental.com'?'블로그':cut(key,12)} · ${maps.pages[path]||cut(path,18)}`;}return maps[section]?.[key]||(section==='region'?'확인 불가':section==='device'?'기타':key);}
+function label(section,row){const key=row.dimensions?.[0]||'';if(section==='search_queries')return cut(key,20);if(section==='pages'){const path=row.dimensions?.[1]||'';return `${key==='ansansdental.com'?'홈페이지':key==='blog.ansansdental.com'?'블로그':cut(key,12)} · ${maps.pages[path]||cut(path,18)}`;}if(section==='source'&&aiName(key))return aiName(key)+' (AI)';return maps[section]?.[key]||(section==='region'?'확인 불가':section==='device'?'기타':key);}
 const hosts=['ansansdental.com','blog.ansansdental.com'];
 function fullLabel(section,row){const key=row.dimensions?.[0]||'';if(section==='search_queries')return key;if(section==='pages'){const path=row.dimensions?.[1]||'';return `${key==='ansansdental.com'?'홈페이지':key==='blog.ansansdental.com'?'블로그':key} · ${maps.pages[path]||path}`;}return label(section,row);}
 function cell(section,row){const td=el('td'),text=label(section,row),title=fullLabel(section,row),host=row.dimensions?.[0],path=row.dimensions?.[1]||'';
@@ -28,7 +32,7 @@ export function renderStats(container,snapshots){
    sorted.forEach((r,i)=>{const circle=document.createElementNS(ns,'circle'),[x,y]=points[i].split(',');circle.setAttribute('cx',x);circle.setAttribute('cy',y);circle.setAttribute('r','3');circle.setAttribute('fill','#436bc0');const tip=document.createElementNS(ns,'title');tip.textContent=`${r.dimensions[0]}: ${num(r.metrics[1])}명`;circle.append(tip);svg.append(circle);});card.append(svg);
    const detail=el('details');detail.append(el('summary','일별 수치 보기'));const table=el('table');for(const r of sorted){const tr=el('tr');tr.append(el('td',r.dimensions[0]),el('td',num(r.metrics[1])));table.append(tr);}detail.append(table);card.append(detail);
   }else{
-   const table=el('table'),thead=el('thead'),tr=el('tr');tr.append(el('th',heading),el('th',metric));thead.append(tr);table.append(thead);const body=el('tbody');for(const row of [...rows].sort((a,b)=>Number(b.metrics[0])-Number(a.metrics[0])).slice(0,10)){const tr=el('tr');tr.append(cell(section,row),el('td',num(row.metrics[0])));body.append(tr);}table.append(body);card.append(table);
+   if(section==='source')card.append(aiSummary(rows));const table=el('table'),thead=el('thead'),tr=el('tr');tr.append(el('th',heading),el('th',metric));thead.append(tr);table.append(thead);const body=el('tbody');for(const row of [...rows].sort((a,b)=>Number(b.metrics[0])-Number(a.metrics[0])).slice(0,10)){const tr=el('tr');tr.append(cell(section,row),el('td',num(row.metrics[0])));body.append(tr);}table.append(body);card.append(table);
   }
   if(snapshot){const meta=el('p',`${payload.startDate} ~ ${payload.endDate} · 갱신 ${new Date(snapshot.updated_at).toLocaleString('ko-KR')}`);meta.className='stats-meta';card.append(meta);}container.append(card);
  }
