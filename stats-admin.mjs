@@ -21,6 +21,25 @@ function fullLabel(section,row){const key=row.dimensions?.[0]||'';if(section==='
 function cell(section,row){const td=el('td'),text=label(section,row),title=fullLabel(section,row),host=row.dimensions?.[0],path=row.dimensions?.[1]||'';
  if(section==='pages'&&hosts.includes(host)&&path.startsWith('/')&&!path.startsWith('//')){const a=el('a',text);a.href=`https://${host}${path}`;a.target='_blank';a.rel='noopener noreferrer';a.title=title;td.append(a);}else td.textContent=text;
  td.title=title;return td;}
+function dailyChart(rows){
+ const ns='http://www.w3.org/2000/svg',wrap=el('div'),W=600,H=210,L=44,R=18,T=26,B=34;wrap.className='stats-chart-wrap';
+ const vals=rows.map(r=>Number(r.metrics[1])||0),max=Math.max(0,...vals),top=max<=4?4:Math.ceil(max/2)*2,n=rows.length;
+ const X=i=>L+(n>1?i*(W-L-R)/(n-1):(W-L-R)/2),Y=v=>T+(1-v/top)*(H-T-B);
+ const mk=(tag,attrs,text)=>{const e=document.createElementNS(ns,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!==undefined)e.textContent=text;return e;};
+ const md=d=>`${+d.slice(4,6)}/${+d.slice(6,8)}`;
+ const svg=mk('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'일별 활성 사용자 추이'});svg.classList.add('stats-chart');
+ svg.append(mk('text',{x:L-8,y:T-12,'text-anchor':'end','font-size':'11',fill:'#64748b'},'명'));
+ for(const t of [0,top/2,top]){svg.append(mk('line',{x1:L,x2:W-R,y1:Y(t),y2:Y(t),stroke:t?'#e5e9f0':'#cbd5e1','stroke-width':'1'}),mk('text',{x:L-8,y:Y(t)+4,'text-anchor':'end','font-size':'12',fill:'#64748b'},String(t)));}
+ const step=Math.max(1,Math.ceil(n/7));let last=-99;
+ rows.forEach((r,i)=>{if(i%step===0||(i===n-1&&i-last>=Math.ceil(step/2))){last=i;svg.append(mk('text',{x:X(i),y:H-10,'text-anchor':'middle','font-size':'12',fill:'#64748b'},md(r.dimensions[0])));}});
+ svg.append(mk('polyline',{points:vals.map((v,i)=>`${X(i)},${Y(v)}`).join(' '),fill:'none',stroke:'#436bc0','stroke-width':'3','stroke-linejoin':'round'}));
+ const tip=el('div');tip.className='stats-tip';
+ vals.forEach((v,i)=>{svg.append(mk('circle',{cx:X(i),cy:Y(v),r:'4',fill:'#436bc0'}));
+  if(n<=14)svg.append(mk('text',{x:X(i),y:Y(v)-10,'text-anchor':'middle','font-size':'12','font-weight':'700',fill:'#2a3a86'},String(v)));
+  const hit=mk('circle',{cx:X(i),cy:Y(v),r:'14',fill:'transparent',tabindex:'0'});hit.style.cursor='pointer';
+  const show=()=>{const d=rows[i].dimensions[0];tip.textContent=`${+d.slice(4,6)}월 ${+d.slice(6,8)}일 · 활성 사용자 ${num(v)}명`;tip.style.left=`${X(i)/W*100}%`;tip.style.top=`${Y(v)/H*100}%`;tip.classList.add('on');},hide=()=>tip.classList.remove('on');
+  hit.addEventListener('mouseenter',show);hit.addEventListener('focus',show);hit.addEventListener('click',show);hit.addEventListener('mouseleave',hide);hit.addEventListener('blur',hide);svg.append(hit);});
+ wrap.append(svg,tip);return wrap;}
 export function renderStats(container,snapshots){
  container.replaceChildren();
  for(const [section,title,heading,metric] of definitions){
@@ -28,9 +47,7 @@ export function renderStats(container,snapshots){
   if(!payload||!rows.length){const empty=el('p',payload?'아직 쌓인 데이터가 없습니다':'통계 수집을 준비하고 있습니다');empty.className='stats-empty';card.append(empty);}
   else if(section==='daily'){
    const summary=el('div');summary.className='stats-summary';['조회수','활성 사용자','방문 횟수'].forEach((name,i)=>{const item=el('div',name);item.append(el('strong',num(payload.totals?.[i])));summary.append(item);});card.append(summary);
-   const sorted=[...rows].sort((a,b)=>a.dimensions[0].localeCompare(b.dimensions[0])),ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');svg.setAttribute('viewBox','0 0 600 160');svg.classList.add('stats-chart');svg.setAttribute('role','img');svg.setAttribute('aria-label','일별 활성 사용자 추이');
-   const max=Math.max(1,...sorted.map(r=>Number(r.metrics[1])||0)),points=sorted.map((r,i)=>`${20+i*560/Math.max(1,sorted.length-1)},${140-(Number(r.metrics[1])||0)*120/max}`),line=document.createElementNS(ns,'polyline');line.setAttribute('points',points.join(' '));line.setAttribute('fill','none');line.setAttribute('stroke','#436bc0');line.setAttribute('stroke-width','3');svg.append(line);
-   sorted.forEach((r,i)=>{const circle=document.createElementNS(ns,'circle'),[x,y]=points[i].split(',');circle.setAttribute('cx',x);circle.setAttribute('cy',y);circle.setAttribute('r','3');circle.setAttribute('fill','#436bc0');const tip=document.createElementNS(ns,'title');tip.textContent=`${r.dimensions[0]}: ${num(r.metrics[1])}명`;circle.append(tip);svg.append(circle);});card.append(svg);
+   const sorted=[...rows].sort((a,b)=>a.dimensions[0].localeCompare(b.dimensions[0]));card.append(dailyChart(sorted));
    const detail=el('details');detail.append(el('summary','일별 수치 보기'));const table=el('table');for(const r of sorted){const tr=el('tr');tr.append(el('td',r.dimensions[0]),el('td',num(r.metrics[1])));table.append(tr);}detail.append(table);card.append(detail);
   }else{
    if(section==='source')card.append(aiSummary(rows));const table=el('table'),thead=el('thead'),tr=el('tr');tr.append(el('th',heading),el('th',metric));thead.append(tr);table.append(thead);const body=el('tbody');for(const row of [...(section==='source'?mergeByLabel(section,rows):rows)].sort((a,b)=>Number(b.metrics[0])-Number(a.metrics[0])).slice(0,10)){const tr=el('tr');tr.append(cell(section,row),el('td',num(row.metrics[0])));body.append(tr);}table.append(body);card.append(table);
