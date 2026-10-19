@@ -638,7 +638,13 @@
 #popupRow.on{display:flex}
 #popupRow .notice-dialog,.popup-card{position:relative;inset:auto;margin:0;flex:0 1 400px;width:400px;max-width:100%;max-height:none}
 .popup-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.25)}
-.popup-card img{display:block;width:100%;height:auto}
+.popup-card img{display:block;width:100%;height:auto;cursor:zoom-in}
+.popup-zoom{position:fixed;inset:0;z-index:110;background:rgba(0,0,0,.85);overflow:auto;display:none;padding:16px;cursor:zoom-out}
+.popup-zoom.on{display:block}
+.popup-zoom img{display:block;margin:0 auto;max-width:96vw;max-height:94vh;width:auto;height:auto;background:#fff;border-radius:6px}
+.popup-zoom.wide img{max-width:none;max-height:none;width:960px}
+.popup-zoom-x{position:fixed;top:10px;right:14px;z-index:111;border:0;background:rgba(255,255,255,.9);width:40px;height:40px;border-radius:50%;font-size:26px;line-height:1;cursor:pointer}
+.popup-zoom:not(.on)+.popup-zoom-x{display:none}
 .popup-card[hidden]{display:none}
 .popup-card-bar{display:flex;justify-content:space-between;padding:4px 12px;border-top:1px solid #e5e7eb;font-size:14px;background:#fff}
 .popup-card-bar button{border:0;background:none;cursor:pointer;font:inherit;color:#374151;padding:10px 6px}
@@ -662,6 +668,7 @@
 <div class="popup-card" id="popupSchedule" hidden><img src="/img/popup-schedule.webp" alt="2026년 10월 치과 근무표" width="1535" height="1024"><div class="popup-card-bar"><button type="button" data-hide>오늘 하루 보지 않기</button><button type="button" data-close>닫기 &times;</button></div></div>
 <div class="popup-card" id="popupWhitening" hidden><img src="/img/popup-whitening.webp" alt="가을 미백 이벤트 25만원에서 18만원, 부가세 별도" width="1080" height="1080"><div class="popup-card-bar"><button type="button" data-hide>오늘 하루 보지 않기</button><button type="button" data-close>닫기 &times;</button></div></div>
 </div>
+<div class="popup-zoom" id="popupZoom" role="dialog" aria-label="이미지 크게 보기"><img alt=""></div><button type="button" class="popup-zoom-x" aria-label="크게 보기 닫기">&times;</button>
 <script>
 (function(){
   var row=document.getElementById("popupRow"),notice=document.getElementById("clinicNotice"),day=new Date().toDateString();
@@ -675,7 +682,13 @@
     c.querySelector("[data-hide]").addEventListener("click",function(){try{localStorage.setItem(k,day)}catch(e){}c.hidden=true});
   });
   row.addEventListener("click",function(e){if(e.target===row){row.querySelectorAll(".popup-card").forEach(function(c){c.hidden=true});if(notice&&notice.open)notice.close()}});
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&row.classList.contains("on")){row.querySelectorAll(".popup-card").forEach(function(c){c.hidden=true});if(notice&&notice.open)notice.close()}});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&zoom.classList.contains("on")){zoom.classList.remove("on");return}if(e.key==="Escape"&&row.classList.contains("on")){row.querySelectorAll(".popup-card").forEach(function(c){c.hidden=true});if(notice&&notice.open)notice.close()}});
+  // 이미지를 누르면 크게 보기 (좁은 화면에서 가로로 긴 이미지는 좌우 스크롤)
+  var zoom=document.getElementById("popupZoom"),zimg=zoom.querySelector("img"),zx=document.querySelector(".popup-zoom-x");
+  function zoomClose(){zoom.classList.remove("on")}
+  row.querySelectorAll(".popup-card img").forEach(function(im){im.addEventListener("click",function(){
+    zimg.src=im.src;zimg.alt=im.alt;zoom.classList.toggle("wide",im.naturalWidth>im.naturalHeight&&window.innerWidth<1000);zoom.classList.add("on");zoom.scrollTop=0;zoom.scrollLeft=0})});
+  zoom.addEventListener("click",zoomClose);zx.addEventListener("click",zoomClose);
   sync();
 })();
 </script>
