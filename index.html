@@ -652,8 +652,19 @@
 <style>
 #popupRow{position:fixed;inset:0;z-index:100;background:rgba(15,25,55,.55);display:none;align-items:flex-start;justify-content:center;gap:14px;padding:16px;overflow:auto}
 #popupRow.on{display:flex}
-#popupRow .notice-dialog{position:relative;inset:auto;margin:0;flex:0 1 400px;width:400px;max-width:100%;max-height:none}
-@media(max-width:900px){#popupRow{flex-direction:column;align-items:center}#popupRow .notice-dialog{flex:none;width:min(400px,100%)}}
+#popupRow .notice-dialog,.popup-card{position:relative;inset:auto;margin:0;flex:0 1 400px;width:400px;max-width:100%;max-height:none}
+.popup-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.popup-card img{display:block;width:100%;height:auto;cursor:zoom-in}
+.popup-card[hidden]{display:none}
+.popup-card-bar{display:flex;justify-content:space-between;padding:4px 12px;border-top:1px solid #e5e7eb;font-size:14px;background:#fff}
+.popup-card-bar button{border:0;background:none;cursor:pointer;font:inherit;color:#374151;padding:10px 6px}
+.popup-zoom{position:fixed;inset:0;z-index:110;background:rgba(0,0,0,.85);overflow:auto;display:none;padding:16px;cursor:zoom-out}
+.popup-zoom.on{display:block}
+.popup-zoom img{display:block;margin:0 auto;max-width:96vw;max-height:94vh;width:auto;height:auto;background:#fff;border-radius:6px}
+.popup-zoom.wide img{max-width:none;max-height:none;width:960px}
+.popup-zoom-x{position:fixed;top:10px;right:14px;z-index:111;border:0;background:rgba(255,255,255,.9);width:40px;height:40px;border-radius:50%;font-size:26px;line-height:1;cursor:pointer}
+.popup-zoom:not(.on)+.popup-zoom-x{display:none}
+@media(max-width:900px){#popupRow{flex-direction:column;align-items:center}#popupRow .notice-dialog,.popup-card{flex:none;width:min(400px,100%)}}
 </style>
 <div id="popupRow">
 <dialog class="notice-dialog" id="clinicNotice" aria-labelledby="noticeTitle" aria-describedby="noticeIntro">
@@ -670,15 +681,29 @@
   </div>
   <div class="notice-footer"><button type="button" data-notice-hide>24시간 다시 보지 않기</button><button type="button" data-notice-close>닫기 &times;</button></div>
 </dialog>
+<div class="popup-card" id="popupSchedule" data-key="202611" hidden><img src="/img/popup-schedule-202611.webp" alt="2026년 11월 치과 근무표" width="1535" height="1024"><div class="popup-card-bar"><button type="button" data-hide>오늘 하루 보지 않기</button><button type="button" data-close>닫기 &times;</button></div></div>
 </div>
+<div class="popup-zoom" id="popupZoom" role="dialog" aria-label="이미지 크게 보기"><img alt=""></div><button type="button" class="popup-zoom-x" aria-label="크게 보기 닫기">&times;</button>
 <script>
 (function(){
-  var row=document.getElementById("popupRow"),notice=document.getElementById("clinicNotice");
+  var row=document.getElementById("popupRow"),notice=document.getElementById("clinicNotice"),day=new Date().toDateString();
   if(!row||!notice)return;
-  function sync(){row.classList.toggle("on",!!notice.open)}
-  new MutationObserver(sync).observe(row,{attributes:true,subtree:true,attributeFilter:["open"]});
-  row.addEventListener("click",function(e){if(e.target===row&&notice.open)notice.close()});
-  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&notice.open)notice.close()});
+  var zoom=document.getElementById("popupZoom"),zimg=zoom.querySelector("img"),zx=document.querySelector(".popup-zoom-x");
+  function sync(){row.classList.toggle("on",!!notice.open||!!row.querySelector(".popup-card:not([hidden])"))}
+  new MutationObserver(sync).observe(row,{attributes:true,subtree:true,attributeFilter:["open","hidden"]});
+  function closeAll(){row.querySelectorAll(".popup-card").forEach(function(c){c.hidden=true});if(notice.open)notice.close()}
+  row.querySelectorAll(".popup-card").forEach(function(c){
+    var k="seouls.popup."+c.id+"."+(c.dataset.key||"");
+    try{if(localStorage.getItem(k)===day)return}catch(e){}
+    c.hidden=false;
+    c.querySelector("[data-close]").addEventListener("click",function(){c.hidden=true});
+    c.querySelector("[data-hide]").addEventListener("click",function(){try{localStorage.setItem(k,day)}catch(e){}c.hidden=true});
+    c.querySelector("img").addEventListener("click",function(){var im=this;zimg.src=im.src;zimg.alt=im.alt;zoom.classList.toggle("wide",im.naturalWidth>im.naturalHeight&&window.innerWidth<1000);zoom.classList.add("on");zoom.scrollTop=0;zoom.scrollLeft=0});
+  });
+  function zoomClose(){zoom.classList.remove("on")}
+  zoom.addEventListener("click",zoomClose);zx.addEventListener("click",zoomClose);
+  row.addEventListener("click",function(e){if(e.target===row)closeAll()});
+  document.addEventListener("keydown",function(e){if(e.key!=="Escape")return;if(zoom.classList.contains("on")){zoomClose();return}if(row.classList.contains("on"))closeAll()});
   sync();
 })();
 </script>
