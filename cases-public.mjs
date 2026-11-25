@@ -6,9 +6,40 @@ const element = (tag, text, className) => { const el = document.createElement(ta
 async function photo(path, alt) {
   const img = element('img'); img.alt = alt; img.loading = 'lazy'; img.src = await api.photoURL(path); return img;
 }
+const BLOG_CASE_FEED = 'https://blog.ansansdental.com/feeds/posts/default/-/' + encodeURIComponent('임상사례') + '?alt=json-in-script&max-results=20&callback=';
+// 블로그에서 '임상사례' 라벨이 붙은 글을 JSON 피드로 가져온다 (실패하면 조용히 빈 목록)
+function blogCaseEntries() {
+  return new Promise(resolve => {
+    const callback = '__seoulsBlogCases' + Date.now(), script = document.createElement('script');
+    let timer;
+    const done = entries => { clearTimeout(timer); delete window[callback]; script.remove(); resolve(entries || []); };
+    timer = setTimeout(() => done([]), 8000);
+    window[callback] = data => done((data.feed && data.feed.entry) || []);
+    script.onerror = () => done([]);
+    script.src = BLOG_CASE_FEED + callback;
+    document.head.append(script);
+  });
+}
+function blogCaseCard(entry) {
+  const link = ((entry.link || []).find(l => l.rel === 'alternate') || {}).href || '';
+  if (!link.startsWith('https://blog.ansansdental.com/')) return null;
+  const html = (entry.content && entry.content.$t) || '';
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const image = [...doc.querySelectorAll('img')].map(img => img.getAttribute('src') || '').find(src => src.startsWith('https://'));
+  const excerpt = [...doc.querySelectorAll('p')].map(p => p.textContent.trim()).find(text => text.length >= 20 && !text.startsWith('※')) || '';
+  const labels = (entry.category || []).map(c => c.term).filter(term => !['임상사례', '서울S치과의원', '안산치과'].includes(term));
+  const card = element('a', '', 'case-card'); card.href = link;
+  const cover = element('div', '', 'case-cover');
+  if (image) { const img = element('img'); img.alt = entry.title.$t + ' 치료 사진'; img.loading = 'lazy'; img.src = image; cover.append(img); }
+  else cover.textContent = '서울S치과 진료 기록';
+  const copy = element('div', '', 'case-card-copy');
+  copy.append(element('span', labels[0] || '임상사례', 'case-tag'), element('h2', entry.title.$t), element('p', excerpt.length > 90 ? excerpt.slice(0, 90) + '…' : excerpt), element('p', entry.published.$t.slice(0, 10) + ' · 블로그 임상사례', 'meta'));
+  card.append(cover, copy); return card;
+}
 async function list() {
   const container = document.getElementById('caseList'), more = document.getElementById('loadMore');
-  let offset = 0;
+  let offset = 0, blogCount = 0;
+  for (const entry of await blogCaseEntries()) { const card = blogCaseCard(entry); if (card) { container.append(card); blogCount++; } }
   async function load() {
     more.disabled = true;
     try {
@@ -22,8 +53,9 @@ async function list() {
         card.append(cover, copy); container.append(card);
       }
       offset += rows.length; more.hidden = rows.length < 20;
-      status.textContent = offset ? `${offset}개 사례를 표시합니다.` : '등록된 임상사례가 아직 없습니다. 사례를 준비하고 있습니다.';
-      if (!offset) status.className = 'case-empty';
+      const total = offset + blogCount;
+      status.textContent = total ? `${total}개 사례를 표시합니다.` : '등록된 임상사례가 아직 없습니다. 사례를 준비하고 있습니다.';
+      if (!total) status.className = 'case-empty';
     } catch (error) { status.textContent = error.message; status.className = 'case-empty'; }
     finally { more.disabled = false; }
   }
